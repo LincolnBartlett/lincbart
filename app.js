@@ -10,13 +10,24 @@ var express     = require('express'),
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 
+
+//ROUTES
 app.get('/', function(req, res){
-    res.redirect('/front');
+    res.render('landing');
 });
 
 app.get('/front', function(req , res){
     res.render('front');
 });
+
+var appRoute = require('./routes/app.js'),
+    crudRoute = require('./routes/crud.js'),
+    blogRoute = require('./routes/blog.js');
+
+
+app.use('/app', appRoute);
+app.use('/crud', crudRoute);
+app.use('/blog', blogRoute);
 
 
 
