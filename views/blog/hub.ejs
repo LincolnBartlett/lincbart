@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>   
+<div class="container jumbotron col-md-4 col-md-offset-4 text-center">
+    <h1>Blog</h1>
+</div>
+<div class="container col-md-4 col-md-offset-4 panel panel-default">
+    <% allBlogs.reverse().forEach(function(post){ %>  
+       <div class="jumbotron text-right" style="padding:10px;margin-top:15px"><h1><%= post.name %></h1>
+       <p> <%= post.date.getMonth() + 1 %>/<%= post.date.getDate()%>/<%= post.date.getFullYear() %>  </p>
+    </div>
+    <div class="panel-body">
+        <%- `<section>${post.bodyBlurb}<h1 class="text-center">...</h1></section>` %>
+        <hr>
+         <form action="/blog/<%=post._id%>"style="float:right">
+        <button class="text-right btn btn-default"><i class="fa fa-angle-double-right" aria-hidden="true"></i>  Read More</button>
+        </form>
+     </div>
+    <% }); %> 
+</div>
+<% include ../partials/footer %>

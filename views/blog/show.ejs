@@ -1,7 +1,20 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 
-SHOW BLOG
+
+<div class="container col-md-4 col-md-offset-4">
+    <div class="jumbotron text-center">
+        <h1><%= foundBlog.name %></h1>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+        <%- foundBlog.body %>
+        </div>
+    </div>
+    <form class="delete-form" action="/blog/<%= foundBlog._id%>?_method=DELETE" method="post">
+        <button class="btn btn-xs btn-danger">Delete</button>
+    </form>
+</div>
 
 
 <% include ../partials/footer %>
