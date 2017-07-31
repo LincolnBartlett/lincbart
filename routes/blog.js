@@ -1,8 +1,7 @@
-var express = require('express'),
-    router = express.Router(),
-    Blog = require('../models/blogSchema'),
-    mongoose = require('mongoose');
-
+var express          = require('express'),
+    router           = express.Router(),
+    Blog             = require('../models/blogSchema'),
+    mongoose         = require('mongoose');
 
 //INDEX
 router.get('/', function(req, res){
@@ -21,7 +20,7 @@ router.get('/new', function(req, res){
     res.render('blog/new');
 });
 
-//Create
+//CREATE
 router.post('/', function(req, res){
     Blog.create(req.body.blog, function(err, newBlog){
         if(err){
@@ -39,6 +38,29 @@ router.get('/:id', function(req, res){
             res.redirect('/blog');
         }else{
             res.render('blog/show', {foundBlog: foundBlog});
+        }
+    });
+});
+
+//EDIT
+router.get('/:id/edit', function(req, res){
+    Blog.findById(req.params.id, function(err, foundBlog){
+        if(err){
+            res.redirect('/blog');
+        }else{
+            res.render('blog/edit', {foundBlog: foundBlog});
+        }
+    });
+});
+
+
+//UPDATE
+router.put('/:id', function(req, res){
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err,foundBlog){
+        if(err){
+            res.redirect('/blog');
+        }else{
+            res.redirect('/blog/' + req.params.id);
         }
     });
 });

@@ -1,62 +1,56 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
-
-
-    <div class="jumbotron col-md-4 col-md-offset-4 text-center">
-        <h1 id="header">Post Blog</h1>
+<div class="jumbotron col-md-6 col-md-offset-3 text-center">
+    <h1 id="header">Blog Title</h1>
+</div>
+<div class="container panel panel-default col-md-6 col-md-offset-3">
+    <div id="window" class="panel panel-body">
+        <h1 style="text-align: left;">Preview changes here...</h1>
+        <div><br></div>
+        <div style="text-align: left;">Just click the preview button above to see how your blog post will look on the site.</div>
+        <div style="text-align: left;"><br></div>
+        <div style="text-align: left;"><br></div>
+        <div style="text-align: left;"><br></div>
+        <div style="text-align: left;"><br></div>
+        <blockquote style="text-align: left;"><span style="font-size: xx-large;">Kinda cool huh?</span><span style="font-size: 14px;">-someone</span></blockquote>
+        <hr id="null">
+        <p style="text-align:center">Get bloggin!</p>
     </div>
-    <div class="container panel panel-default col-md-4 col-md-offset-4">
-        <div id="window" class="panel panel-body">
-            <h1 style="text-align: left;">Preview changes here...</h1>
-            <div><br></div>
-            <div style="text-align: left;">Just click the preview button above to see how your blog post will look on the site.</div>
-            <div style="text-align: left;"><br></div>
-            <div style="text-align: left;"><br></div>
-            <div style="text-align: left;"><br></div>
-            <div style="text-align: left;"><br></div>
-            <blockquote style="text-align: left;"><span style="font-size: xx-large;">Kinda cool huh?</span><span style="font-size: 14px;">-someone</span></blockquote>
-            <hr id="null">
-            <p style="text-align:center">Get bloggin!</p>
-        </div>
-
+</div>
+<div class="container-fluid text-center">
+    <div class="container col-md-6 col-md-offset-3">
+        <form action='/blog' method='POST'>
+            <div class="form-group">
+                <input id="title" class="form-control" type='text' name='blog[name]' placeholder='Blog Title'></input>
+                
+                <button id="submit" class="btn btn-primary" type='submit' name='submit'>Submit</button>
+                
+                <textarea class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl" name="blog[body]" id="bodyPost"></textarea>                   
+            </div>
+        </form>
+        <button class="btn btn-danger" id="preview" style="display:block;margin: 10px auto">Preview</button>
     </div>
-    <div class="container-fluid text-center">
-        <div class="container col-md-4 col-md-offset-4">
-            <form action='/blog' method='POST'>
-                <div class="input-group">
-                    <input id="title" class="form-control" type='text' name='blog[name]' placeholder='Blog Title'></input>
-                    <span class="input-group-btn">
-                    <button class="btn btn-primary" type='submit' name='submit'>Submit</button>
-                    </span>
-                    <textarea class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl" name="blog[body]" id="bodyPost"></textarea>
-                    <textarea class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl" name="blog[bodyBlurb]" id="bodyBlurb"></textarea>
-                </div>
-            </form>
-            <button class="btn btn-danger" id="preview" style="display:block;margin: 10px auto">Preview</button>
-        </div>
-    </div>
-    <div class="col-md-6 col-md-offset-3 text-left">
-        <textarea id="body" cols="20" type='text'></textarea>
-    </div>
-   
-
+</div>
+<div class="col-md-8 col-md-offset-2 text-left">
+    <textarea id="body" cols="20" type='text'></textarea>
+</div>
 <% include ../partials/footer %>
-                <script src="/js/editor.js"></script>
-                <link type="text/css" href="/css/editor.css" rel="stylesheet" />
-                <script>
-                    var editor = $("#body").Editor({
-                        "fonts": false,
-                        "insert_img": false,
-                        "splchars": false
-                    });
+<script src="/js/editor.js"></script>
+<link type="text/css" href="/css/editor.css" rel="stylesheet" />
+<script>
+$("#submit").hide();
+var editor = $("#body").Editor({
+    "fonts": false,
+    "insert_img": false,
+    "splchars": false
+});
 
-                    $("#preview").click(function () {
-                        var post = $("#body").Editor("getText");
-                        var header= $('#title').val();
-                        $("#header").html(header);
-                        $("#window").html(post);
-                        $("#bodyPost").html(post);
-                        $("#bodyBlurb").html(`<div>${post.substring(0,1800)} </div>`);
-                    });
-
-                </script>
+$("#preview").click(function () {
+    $("#submit").show();
+    var post = $("#body").Editor("getText");
+    var header= $('#title').val();
+    $("#header").html(header);
+    $("#window").html(post);
+    $("#bodyPost").html(post);
+});
+</script>

@@ -3,7 +3,6 @@ var mongoose    = require('mongoose');
 var blogSchema = new mongoose.Schema({
     name: String,
     body: String,
-    bodyBlurb: String,
     date: { type: Date, default: Date.now }/*,
     
     author:{
