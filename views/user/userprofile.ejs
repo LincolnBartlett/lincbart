@@ -8,7 +8,7 @@
 </div>
 <% if(currentUser && foundProfile._id.equals(currentUser._id)){ %>
     <div class="text-center"
-        <form action="/blog/new" >
+        <form action="/blog/new" method="get" >
             <button class="btn btn-default">Write Blog Post</button>
         </form>
     </div>
