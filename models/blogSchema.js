@@ -3,8 +3,7 @@ var mongoose    = require('mongoose');
 var blogSchema = new mongoose.Schema({
     name: String,
     body: String,
-    date: { type: Date, default: Date.now }/*,
-    
+    date: { type: Date, default: Date.now },    
     author:{
         id :{
             type: mongoose.Schema.Types.ObjectId,
@@ -12,7 +11,7 @@ var blogSchema = new mongoose.Schema({
         },
         username: String
     }
-    */
+    
 });
 
 module.exports = mongoose.model('Blog', blogSchema);

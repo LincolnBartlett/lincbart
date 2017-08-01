@@ -1,7 +1,8 @@
 var express          = require('express'),
     router           = express.Router(),
     Blog             = require('../models/blogSchema'),
-    mongoose         = require('mongoose');
+    mongoose         = require('mongoose'),
+    middleware       = require('../middleware');
 
 //INDEX
 router.get('/', function(req, res){
@@ -16,13 +17,20 @@ router.get('/', function(req, res){
 });
 
 //NEW
-router.get('/new', function(req, res){
+router.get('/new', middleware.isLoggedIn, function(req, res){
     res.render('blog/new');
 });
 
 //CREATE
-router.post('/', function(req, res){
-    Blog.create(req.body.blog, function(err, newBlog){
+router.post('/', middleware.isLoggedIn, function(req, res){
+    var name= req.body.blog.name;
+    var body= req.body.blog.body;
+    var author={
+        id: req.user._id,
+        username: req.user.username
+    };
+    var newBlog = {name: name, body: body, author:author};
+    Blog.create(newBlog, function(err, newBlog){
         if(err){
             res.render('blog/new');
         } else {
@@ -43,7 +51,7 @@ router.get('/:id', function(req, res){
 });
 
 //EDIT
-router.get('/:id/edit', function(req, res){
+router.get('/:id/edit', middleware.checkBlogOwner, function(req, res){
     Blog.findById(req.params.id, function(err, foundBlog){
         if(err){
             res.redirect('/blog');

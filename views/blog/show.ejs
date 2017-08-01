@@ -1,9 +1,13 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
-<div class="container col-md-6 col-md-offset-3">
-    <div class="jumbotron text-center">
+<div class="jumbotron">
+    <div class="container">
         <h1><%= foundBlog.name %></h1>
-    </div> 
+        <h2>a blogpost by <%= foundBlog.author.username %></h2>
+        <p>on <%= foundBlog.date.getMonth() + 1 %>/<%= foundBlog.date.getDate()%>/<%= foundBlog.date.getFullYear() %>  </p>
+    </div>
+</div> 
+<div class="container">
     <div class="panel panel-default" style="padding:10px">        
             <div class="text-right">
                 <form style="display:inline;" action="/blog/<%= foundBlog._id%>/edit" method="get">

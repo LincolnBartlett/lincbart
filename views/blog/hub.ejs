@@ -1,12 +1,16 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>   
-<div class="container jumbotron text-center">
-    <h1>Blog</h1>
+<div class="jumbotron">
+    <div class="container">
+        <h1>Blog</h1>
+    </div>
 </div>
 <div class="container panel panel-default">
     <% allBlogs.reverse().forEach(function(post){ %>  
-       <div class="jumbotron text-right" style="padding:10px;margin-top:15px"><h1><%= post.name %></h1>
-       <p> <%= post.date.getMonth() + 1 %>/<%= post.date.getDate()%>/<%= post.date.getFullYear() %>  </p>
+       <div class="jumbotron text-right" style="padding:10px;margin-top:15px">
+        <h1><%= post.name %></h1>
+        <h2><%= post.author.username %></h2>
+        <p> <%= post.date.getMonth() + 1 %>/<%= post.date.getDate()%>/<%= post.date.getFullYear() %>  </p>
     </div>
     <div class="panel-body">
         <%- `<section>${post.body.substring(0,2000)}<h1 class="text-center">...</h1></section>` %>
