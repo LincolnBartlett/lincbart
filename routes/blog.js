@@ -74,7 +74,7 @@ router.put('/:id', function(req, res){
 });
 
 //DELETE
-router.delete('/:id', function(req, res){
+router.delete('/:id', middleware.checkBlogOwner, function(req, res){
     Blog.findByIdAndRemove(req.params.id, function(err, foundBlog){
         if(err){
             console.log(err);

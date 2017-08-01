@@ -8,7 +8,8 @@
     </div>
 </div> 
 <div class="container">
-    <div class="panel panel-default" style="padding:10px">        
+    <div class="panel panel-default" style="padding:10px">   
+    <% if(currentUser && foundBlog.author.id.equals(currentUser._id)){ %>
             <div class="text-right">
                 <form style="display:inline;" action="/blog/<%= foundBlog._id%>/edit" method="get">
                     <button class="btn btn-xs btn-warning" style="margin: 0">Edit</button>
@@ -16,7 +17,8 @@
                 <form style="display:inline;" action="/blog/<%= foundBlog._id%>?_method=DELETE" method="post">
                     <button class="btn btn-xs btn-danger" style="margin: 0">Delete</button>
                 </form>
-            </div>     
+            </div>   
+    <% } %>
     <div class="panel-body">
         <%- foundBlog.body %>
         </div>

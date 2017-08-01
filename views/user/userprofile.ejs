@@ -6,5 +6,11 @@
         <h1><%= foundProfile.username %></h1>
     </div>
 </div>
-
+<% if(currentUser && foundProfile._id.equals(currentUser._id)){ %>
+    <div class="text-center"
+        <form action="/blog/new" >
+            <button class="btn btn-default">Write Blog Post</button>
+        </form>
+    </div>
+ <% }; %> 
 <% include ../partials/footer %>

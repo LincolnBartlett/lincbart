@@ -10,7 +10,7 @@ var express          = require('express'),
     User             = require('./models/userSchema');
 
 var port = 1901; 
-mongoose.connect('mongodb://localhost/lincbart1');
+mongoose.connect('mongodb://localhost/lincbart2');
 
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
