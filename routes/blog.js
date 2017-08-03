@@ -2,7 +2,8 @@ var express          = require('express'),
     router           = express.Router(),
     Blog             = require('../models/blogSchema'),
     mongoose         = require('mongoose'),
-    middleware       = require('../middleware');
+    middleware       = require('../middleware'),
+    newComment       = require('../models/commentSchema');
 
 //INDEX
 router.get('/', function(req, res){
@@ -41,7 +42,7 @@ router.post('/', middleware.isLoggedIn, function(req, res){
 
 //SHOW
 router.get('/:id', function(req, res){
-    Blog.findById(req.params.id, function(err, foundBlog){
+    Blog.findById(req.params.id).populate('comments').exec(function(err, foundBlog){
         if(err){
             res.redirect('/blog');
         }else{
@@ -63,7 +64,7 @@ router.get('/:id/edit', middleware.checkBlogOwner, function(req, res){
 
 
 //UPDATE
-router.put('/:id', function(req, res){
+router.put('/:id', middleware.checkBlogOwner, function(req, res){
     Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err,foundBlog){
         if(err){
             res.redirect('/blog');
@@ -83,6 +84,45 @@ router.delete('/:id', middleware.checkBlogOwner, function(req, res){
         }
     });
 });
+
+
+
+
+//COMMENT ROUTES
+//NEW
+router.get('/:id/comment/new', function(req, res){
+    Blog.findById(req.params.id, function(err, foundBlog){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('blog/comment',{foundBlog: foundBlog, id: req.params.id});  
+        }
+    });
+    
+});
+
+//CREATE
+router.post('/:id/comment', middleware.isLoggedIn, function(req, res){
+    Blog.findById(req.params.id, function(err, foundBlog){   
+        if(err){
+            console.log(err);
+        }else{
+            newComment.create(req.body.comment, function(err, comment){
+                if(err){
+                    console.log(err);
+                }else{
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;       
+                    comment.save();
+                    foundBlog.comments.push(comment);
+                    foundBlog.save();
+                    res.redirect('/blog/'+ foundBlog.id);
+                }
+            });
+        }
+    });
+});
+
 
 
 module.exports = router; 

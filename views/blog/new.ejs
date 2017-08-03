@@ -1,44 +1,49 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
-<div class="jumbotron col-md-6 col-md-offset-3 text-center">
-    <h1 id="header">Blog Title</h1>
-</div>
-<div class="container panel panel-default col-md-6 col-md-offset-3">
-    <div id="window" class="panel panel-body">
-        <h1 style="text-align: left;">Preview changes here...</h1>
-        <div><br></div>
-        <div style="text-align: left;">Just click the preview button above to see how your blog post will look on the site.</div>
-        <div style="text-align: left;"><br></div>
-        <div style="text-align: left;"><br></div>
-        <div style="text-align: left;"><br></div>
-        <div style="text-align: left;"><br></div>
-        <blockquote style="text-align: left;"><span style="font-size: xx-large;">Kinda cool huh?</span><span style="font-size: 14px;">-someone</span></blockquote>
-        <hr id="null">
-        <p style="text-align:center">Get bloggin!</p>
-    </div>
-</div>
-<div class="container-fluid text-center">
-    <div class="container col-md-6 col-md-offset-3">
-        <form action='/blog' method='POST'>
-            <div class="form-group">
-                <input id="title" class="form-control" type='text' name='blog[name]' placeholder='Blog Title'></input>
-                
-                <button id="submit" class="btn btn-primary" type='submit' name='submit'>Submit</button>
-                
-                <textarea class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl" name="blog[body]" id="bodyPost"></textarea>                   
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-        </form>
-        <button class="btn btn-danger" id="preview" style="display:block;margin: 10px auto">Preview</button>
+            <div class="modal-body">
+                <div class="jumbotron text-center">
+                    <h1 id="header"></h1>
+                </div>
+                <div id="window">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form action='/blog' method='POST'>
+                    <div class="form-group">
+                        <input id="title" class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl" type='text' name='blog[name]' placeholder='Blog Title'></input>
+                        <button id="submit" class="btn btn-primary" type='submit' name='submit'>Submit</button>
+                        <textarea class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl" name="blog[body]" id="bodyPost"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div> 
     </div>
 </div>
-<div class="col-md-8 col-md-offset-2 text-left">
-    <textarea id="body" cols="20" type='text'></textarea>
+<div class="row" style="margin-top:100px">
+<div class="col-lg-6 col-lg-offset-3 well well-lg">
+<div class="well-heading"><h1>Write a new blog:</h1></div>
+    <div class="well-body">
+    <button id="preview" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin:auto;display:block">Preview</button>
+   <hr>
+    <input id="titletext" class="form-control" type='text' name='blog[name]' placeholder='Blog Title'></input>
+    <div id="body"></div>
+    </div>
 </div>
+<div class="col-lg-3"></div>
+</div>
+
 <% include ../partials/footer %>
 <script src="/js/editor.js"></script>
 <link type="text/css" href="/css/editor.css" rel="stylesheet" />
 <script>
-$("#submit").hide();
+
 var editor = $("#body").Editor({
     "fonts": false,
     "insert_img": false,
@@ -46,9 +51,9 @@ var editor = $("#body").Editor({
 });
 
 $("#preview").click(function () {
-    $("#submit").show();
     var post = $("#body").Editor("getText");
-    var header= $('#title').val();
+    var header= $('#titletext').val();
+    $("#title").val(header);
     $("#header").html(header);
     $("#window").html(post);
     $("#bodyPost").html(post);

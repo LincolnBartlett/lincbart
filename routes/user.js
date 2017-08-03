@@ -19,7 +19,7 @@ router.post('/register', function(req, res){
             return res.render('./user/register');
         }else{
             passport.authenticate('local')(req, res, function(){
-                res.redirect('/user/profile');
+                res.redirect(' /user/profile');
             });
         }
     });
@@ -31,7 +31,7 @@ router.get('/login', function(req, res){
 });
 
 router.post('/login', passport.authenticate('local',{
-    successRedirect:'/user/profile/',
+    successRedirect:'back',
     failureRedirect: '/user/login'
 }) , function(req, res){});
 

@@ -1,12 +1,12 @@
-a:link {
-    color: #000000;
+
+footer a:link, footer a:visited {  
+    color: #555555;
 }
-a:visited {
-    color: #000000;
+
+footer a:hover {
+    color: #000000; 
 }
-a:hover {
-    color: #666970;
-}
-a:active {
-    color: #000000;
+
+footer a:active {
+    color:#888888;
 }

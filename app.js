@@ -10,7 +10,7 @@ var express          = require('express'),
     User             = require('./models/userSchema');
 
 var port = 1901; 
-mongoose.connect('mongodb://localhost/lincbart2');
+mongoose.connect('mongodb://localhost/lincbart3');
 
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
@@ -44,16 +44,18 @@ app.get('/front', function(req , res){
     res.render('front');
 });
 
-var appRoute = require('./routes/app.js'),
-    crudRoute = require('./routes/crud.js'),
-    blogRoute = require('./routes/blog.js'),
-    userRoute = require('./routes/user.js');
+var appRoute     = require('./routes/app.js'),
+    crudRoute    = require('./routes/crud.js'),
+    blogRoute    = require('./routes/blog.js'),
+    userRoute    = require('./routes/user.js');
 
 
 app.use('/app', appRoute);
 app.use('/crud', crudRoute);
 app.use('/blog', blogRoute);
 app.use('/user', userRoute);
+
+
 
 
 app.get('/*', function(req, res){

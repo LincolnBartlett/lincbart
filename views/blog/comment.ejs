@@ -1,0 +1,34 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+<div class="jumbotron">
+    <div class="container">
+    <h1><%= foundBlog.name %></h1>
+    <h2>a blogpost by <%= foundBlog.author.username %></h2>
+    <p>on <%= foundBlog.date.getMonth() + 1 %>/<%= foundBlog.date.getDate()%>/<%= foundBlog.date.getFullYear() %>  </p>
+</div>
+</div>
+
+<div class="container">
+    <h2 class="text-center"> Add New Comment</h2>
+    <div class="row col-md-4 col-md-offset-4 text-center">
+        <form action='/blog/<%= foundBlog.id %>/comment' method='POST'>
+            <div class="form-group">
+                <input class="form-control" type='text' name='comment[text]' placeholder='Write a comment'>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-lg btn-primary" type='submit' name='submit'>
+            </div>
+        </form>
+        <a href='/blog/<%=foundBlog.id%>'>Return</a>
+    </div>
+</div>
+
+<div class="container panel panel-default">
+<div class="panel-body">
+    <%- foundBlog.body %>
+</div>
+</div>      
+
+
+<% include ../partials/footer %>

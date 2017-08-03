@@ -1,5 +1,6 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
+
 <div class="jumbotron">
     <div class="container">
         <h1><%= foundBlog.name %></h1>
@@ -7,8 +8,10 @@
         <p>on <%= foundBlog.date.getMonth() + 1 %>/<%= foundBlog.date.getDate()%>/<%= foundBlog.date.getFullYear() %>  </p>
     </div>
 </div> 
-<div class="container">
-    <div class="panel panel-default" style="padding:10px">   
+
+<div class="row">
+
+    <div class="panel panel-default col-lg-5 col-lg-offset-2" style="margin-right:20px;padding:25px;">   
     <% if(currentUser && foundBlog.author.id.equals(currentUser._id)){ %>
             <div class="text-right">
                 <form style="display:inline;" action="/blog/<%= foundBlog._id%>/edit" method="get">
@@ -22,6 +25,43 @@
     <div class="panel-body">
         <%- foundBlog.body %>
         </div>
+
     </div>
+<% if (currentUser){ %>
+<div class="well col-lg-3">
+    <form action='/blog/<%= foundBlog.id %>/comment' method='POST'>
+        <div class="form-group">
+            <input class="form-control" type='text' name='comment[text]' placeholder='Write a comment' required>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-sm btn-primary" type='submit' name='submit'>
+        </div>
+    </form>
+</div>
+<% } %>
+
+    <% if(foundBlog.comments.length > 0) { %>   
+    <div class="container panel panel-default col-lg-3">
+    <h1>Comments</h1>
+    <div class="panel-body">
+    <% foundBlog.comments.reverse().forEach(function(comment){ %>
+        <hr>
+        <div class="media">
+        <div class="media-left">
+            <a href="#">
+                <img class="media-object" src="/images/link.jpg">
+            </a>
+        </div>
+        <div class="media-body"> 
+            <h4 class="media-heading"> <%=comment.author.username%></h4>  
+            <%= comment.text %>
+        </div>
+        </div>
+    <% }); %>
+        </div>
+</div>
+    <% } %>
+
+
 </div>
 <% include ../partials/footer %>
