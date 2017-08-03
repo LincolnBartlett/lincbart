@@ -1,9 +1,9 @@
 var Blog = require('../models/blogSchema');
 
 
-var middlewareObj = {};
+var middleware = {};
 
-middlewareObj.checkBlogOwner = function(req, res, next){
+middleware.checkBlogOwner = function(req, res, next){
     if(req.isAuthenticated()){
         Blog.findById(req.params.id, function(err, foundBlog){
             if(err){
@@ -23,11 +23,19 @@ middlewareObj.checkBlogOwner = function(req, res, next){
 
 
 //Check Login Status
-middlewareObj.isLoggedIn = function (req, res, next){
+middleware.isAlreadyLoggedIn = function (req, res, next){
+    if(req.isAuthenticated()){
+        res.redirect('/user/profile');
+    }else{
+        return next();   
+    }
+    
+}
+middleware.isLoggedIn = function (req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
     res.redirect('/user/login');
 }
 
-module.exports = middlewareObj;
+module.exports = middleware;

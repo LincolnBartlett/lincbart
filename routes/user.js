@@ -2,7 +2,8 @@ var express          = require('express'),
     router           = express.Router(),
     User             = require('../models/userSchema'),
     mongoose         = require('mongoose'),
-    passport         = require('passport');
+    passport         = require('passport'),
+    middleware       = require('../middleware');
 
     
 //REGISTER
@@ -26,7 +27,7 @@ router.post('/register', function(req, res){
 });
 
 //LOGIN
-router.get('/login', function(req, res){
+router.get('/login',middleware.isAlreadyLoggedIn, function(req, res){
     res.render('./user/login');
 });
 

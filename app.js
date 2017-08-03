@@ -10,7 +10,7 @@ var express          = require('express'),
     User             = require('./models/userSchema');
 
 var port = 1901; 
-mongoose.connect('mongodb://localhost/lincbart3');
+mongoose.connect('mongodb://localhost/lincbart2');
 
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
@@ -54,8 +54,6 @@ app.use('/app', appRoute);
 app.use('/crud', crudRoute);
 app.use('/blog', blogRoute);
 app.use('/user', userRoute);
-
-
 
 
 app.get('/*', function(req, res){

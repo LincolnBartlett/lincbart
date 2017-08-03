@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 
-<div class="jumbotron">
+<div class="jumbotron"style="opacity: .5">
     <div class="container">
         <h1><%= foundBlog.name %></h1>
         <h2>a blogpost by <%= foundBlog.author.username %></h2>
@@ -27,30 +27,17 @@
         </div>
 
     </div>
-<% if (currentUser){ %>
-<div class="well col-lg-3">
-    <form action='/blog/<%= foundBlog.id %>/comment' method='POST'>
-        <div class="form-group">
-            <input class="form-control" type='text' name='comment[text]' placeholder='Write a comment' required>
-        </div>
-        <div class="form-group">
-            <input class="btn btn-sm btn-primary" type='submit' name='submit'>
-        </div>
-    </form>
-</div>
-<% } %>
+
 
     <% if(foundBlog.comments.length > 0) { %>   
     <div class="container panel panel-default col-lg-3">
-    <h1>Comments</h1>
     <div class="panel-body">
+        <h1>Comments</h1>
     <% foundBlog.comments.reverse().forEach(function(comment){ %>
         <hr>
         <div class="media">
         <div class="media-left">
-            <a href="#">
-                <img class="media-object" src="/images/link.jpg">
-            </a>
+
         </div>
         <div class="media-body"> 
             <h4 class="media-heading"> <%=comment.author.username%></h4>  
@@ -58,10 +45,25 @@
         </div>
         </div>
     <% }); %>
-        </div>
+    </div>
 </div>
     <% } %>
 
+    <% if (currentUser){ %>
+<div class="panel panel-default col-lg-3">
+    <div class="panel-body">
+        <h1>Add Comment</h1>
+        <form action='/blog/<%= foundBlog.id %>/comment' method='POST'>
+            <div class="form-group">
+                <textarea class="form-control" type='text' name='comment[text]' rows="5" placeholder='Write a comment' required></textarea>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-sm btn-primary" type='submit' name='submit'>
+            </div>
+        </form>
+    </div>
+</div>
+<% } %>
 
 </div>
 <% include ../partials/footer %>

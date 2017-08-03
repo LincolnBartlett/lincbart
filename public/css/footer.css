@@ -10,3 +10,8 @@ footer a:hover {
 footer a:active {
     color:#888888;
 }
+
+body{
+    background-image: url("/images/crossword.png");
+    background-repeat: repeat;
+}
