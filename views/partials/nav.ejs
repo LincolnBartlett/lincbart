@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" style="opacity:.8">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
@@ -27,7 +27,7 @@
             <% if (!currentUser){ %>
               
                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>  Login</a>
                     <ul id="loginform" class="dropdown-menu">
                       <li>
                           <form  class="navbar-form" action="/user/login" method="POST">
@@ -41,11 +41,11 @@
                       </ul>
                    </li>
                   <li>
-                    <a href="/user/register">Register</a>
+                    <a href="/user/register"><i class="fa fa-user-plus"></i> Register</a>
                   </li> 
             <% } else { %>
-                <li><a href='/user/profile/<%=currentUser._id%>'><%= currentUser.username %></a></li>
-                <li><a class="text-danger" href="/user/logout">Logout</a></li>
+                <li><a href='/user/profile/<%=currentUser._id%>'><i class="fa fa-user-circle"></i>  <%= currentUser.username %></a></li>
+                <li><a class="text-danger" href="/user/logout"><i class="fa fa-user-times"></i>  Logout</a></li>
             <% } %>
       </ul>
     </div>

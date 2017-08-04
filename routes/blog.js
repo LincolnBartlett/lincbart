@@ -7,14 +7,39 @@ var express          = require('express'),
 
 //INDEX
 router.get('/', function(req, res){
+    res.redirect('blog/pages/0'); 
+});
+
+//PAGES
+
+router.get('/pages/:id', function(req, res){
     Blog.find({}, function(err, allBlogs){
         if(err){
             console.log(err);
         }else{
-            res.render('blog/hub',{allBlogs: allBlogs});
+        var page = Number(req.params.id);
+        var displaynum = 5;
+        var pagecount = page * displaynum;
+        var displaystart= allBlogs.length - pagecount;
+        var displayend= (displaystart) - displaynum;
+        var displayblogs= [];
+            if(displayend >= 0){
+                for(var i = displaystart; i > displayend ; i--){
+                    displayblogs.push(allBlogs[i - 1]);
+                }
+                res.render('blog/hub',{allBlogs:displayblogs,pagenum:page});
+
+            }else if(displayend < 0 && displaystart >0){
+                 for(var i = displaystart; i > 0; i--){
+                    displayblogs.push(allBlogs[i - 1]);
+                }
+                res.render('blog/hub',{allBlogs:displayblogs,pagenum:page});
+
+            }else{
+                res.redirect('/blog');
+            }
         }
     });
-    
 });
 
 //NEW

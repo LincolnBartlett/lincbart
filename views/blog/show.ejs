@@ -6,6 +6,7 @@
         <h1><%= foundBlog.name %></h1>
         <h2>a blogpost by <%= foundBlog.author.username %></h2>
         <p>on <%= foundBlog.date.getMonth() + 1 %>/<%= foundBlog.date.getDate()%>/<%= foundBlog.date.getFullYear() %>  </p>
+        <button class="btn btn-primary" onclick="goBack()">Go Back</button>
     </div>
 </div> 
 
@@ -15,10 +16,10 @@
     <% if(currentUser && foundBlog.author.id.equals(currentUser._id)){ %>
             <div class="text-right">
                 <form style="display:inline;" action="/blog/<%= foundBlog._id%>/edit" method="get">
-                    <button class="btn btn-xs btn-warning" style="margin: 0">Edit</button>
+                    <button class="btn btn-xs btn-info" style="margin: 0">Edit</button>
                 </form>
                 <form style="display:inline;" action="/blog/<%= foundBlog._id%>?_method=DELETE" method="post">
-                    <button class="btn btn-xs btn-danger" style="margin: 0">Delete</button>
+                    <button class="btn btn-xs btn-primary" style="margin: 0">Delete</button>
                 </form>
             </div>   
     <% } %>
@@ -37,7 +38,7 @@
         <hr>
         <div class="media">
         <div class="media-left">
-
+<i class="fa fa-2x fa-quote-left" aria-hidden="true"></i>
         </div>
         <div class="media-body"> 
             <h4 class="media-heading"> <%=comment.author.username%></h4>  
@@ -52,7 +53,8 @@
     <% if (currentUser){ %>
 <div class="panel panel-default col-lg-3">
     <div class="panel-body">
-        <h1>Add Comment</h1>
+        <h1><i class="fa fa-pencil-square-o"></i> Add Comment</h1>
+        <hr>
         <form action='/blog/<%= foundBlog.id %>/comment' method='POST'>
             <div class="form-group">
                 <textarea class="form-control" type='text' name='comment[text]' rows="5" placeholder='Write a comment' required></textarea>
@@ -66,4 +68,9 @@
 <% } %>
 
 </div>
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
 <% include ../partials/footer %>
