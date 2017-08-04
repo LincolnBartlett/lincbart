@@ -1,14 +1,115 @@
 <% include partials/header %>
 <% include partials/nav %>
+<link rel="stylesheet" href ="/css/front.css" type="text/css">
+<div class="row">
+    <div class="panel panel-default col-lg-4 col-lg-offset-4 hello">
+        <div class="panel-body">
+            <p><h1>Hello World.</h1> My name is Lincoln Bartlett. You are currently reading a website I am hosting on a virtual machine running ubuntu in my living room. 
+                His name is alan3000. Right now he is serving up a mean node.js application while making sure to take rests. The little guy has pulled him self up by the
+                bootstraps to do it, but I think he stacks up pretty well.</p>
+                <p>
+                Okay, I lied. He says it's a mean stack but really it's a men stack. <em>I hope I figure out Angluar before he realizes.</em> I'd hate to break his little virtual heart. </p>
+                <br>
+            <p>Anyway, feel free to stick around and <a href="/user/register">sign up</a> for a <a href="/crud">CRUD</a> account. 
+                or read one of my many finely crafted <a href="/blog">blogposts.</a>
+                <br>
+            <p>I also have<a href="/app/calc"> built</a> a few <a href="/app/pomo">small</a> javascript <a href="/app/rome"> applications.</a> That are kinda neat. I think so at least.</p>   
+            <p>If you would like to talk to me directly about the world of software engineering then feel free to e-mail me here</p>
+        </div>   
+    </div>
+</div>
+<div class="hidden-xs hidden-sm hidden-md">
+<div class="jumbotron text-center push"style="margin-bottom:0;padding-bottom:0">
+<h1>Keep scrolling to see a trendy portfolio website.</h1>
+<div class="text-center">
+    <i class="fa fa-4x fa-caret-down" aria-hidden="true"></i>
+    <i class="fa fa-4x fa-caret-down" aria-hidden="true"></i>
+    <i class="fa fa-4x fa-caret-down" aria-hidden="true"></i>
+</div>
+</div>
+<div class="jumbotron custpanel text-center">
+    <p><i class="fa fa-5x fa-user-circle-o" aria-hidden="true"></i></p>
+    <h1> Lincoln W Bartlett </h1>
+    <p><em>Developer.Maker.Dreamer</em></p>   
+</div>
+<div class="parallax push" style="background-image: url('images/midTownfull.jpg')">
 
+		<div class="jumbotron text-center custpanel">
+			<div class="row text-center">	
+				<div class ="col-lg-4">
+					<i class="fa fa-5x fa-handshake-o" aria-hidden="true"></i>
+					<h3 class="text-center">Consultation</h3>
+				</div>
+				<div class ="col-lg-4">
+					<i class="fa fa-5x fa-code" aria-hidden="true"></i>
+					<h3>Development</h3>
+				</div>
+				<div class ="col-lg-4">
+					<i class="fa fa-5x fa-area-chart" aria-hidden="true"></i>
+					<h3>Maintenance</h3>
+				</div>
+			</div>
+		</div>
+</div>
+<div class="trendyoff">
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4 panel panel-default">
+            <div class="panel-body">
+                <blockquote>People love parallax scrolling and blockquotes
+                    <small>someone probably</small>
+                </blockquote>
+            </div>
+        </div>
 
-    <div class="container-fluid jumbotron">
-     
-        <div class="container text-center">
-               <h1>Welcome To lincBart.com</h1>
+</div>
+</div>
+<div class="text-center trendy push">
+    <div style="opacity:.9">
+        <img src="images/html5.png" style="height: 125px;">
+        <img src="images/css3.png" style="height: 125px;">
+        <img src="images/jslogo.png" style="height: 125px; ">
+        <img src="images/jquery.png" style="height: 125px;"> 
+        <img src="images/bootstrap.png" style="height: 125px;">
+        <img src="images/nodejs.png" style="height: 125px;">
+        <img src="images/mongo.png" style="height: 125px;">
+    </div>
+</div>
+<div class="parallax trendy" style="background-image: url('images/mountains.jpg');opacity:.9">
+    <div class="push text-center">
+        <p>Making the world a better place.</p>
+        <h1>one website at a time</h1>
+        <img src="images/signature.png">
+    </div>
+</div>
+<div class="trendy push text-center">
+    <p>So much scrolling</p>
+</div>
+<div class="container-fluid parallax" style="background-image: url(images/javaCode.jpg);height: auto;">
+    <div class="row"> 
+        <div class="col-lg-6 col-lg-offset-3 text-center">
+            <a href="#javBtn" id="javBtn" onclick="return false;"><img class="img-rounded img-responsive" style="width: 60%; margin:auto" src="images/typewriter.png"></a><br>
         </div>
     </div>
-
-
-
+    <div class="container text-center" id="javPan" style="padding:75px">
+            <div class="row">
+                <div class="col-lg-4">
+                    <a href="/app/rome"><img class="img-circle img-responsive" src="images/romeThumb.png"></a>	
+                </div>
+                <div class="col-lg-4">
+                    <a href="/app/calc"><img class="img-circle img-responsive" src="images/calcThumb.png"></a>
+                    
+                </div>
+                <div class="col-lg-4">
+                    <a href="/app/pomo"><img alt="" class="img-circle img-responsive" src="images/pomoThumb.png"></a>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="trendy push text-center">
+    <p>fin.</p>
+    <br>
+    <h2>a website by lincoln w bartlett</h2>
+</div>
+</div>
 <% include partials/footer %>
+<script src="/js/front.js"></script>

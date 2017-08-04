@@ -1,0 +1,49 @@
+.parallax { 
+    padding-top : 150px;
+    padding-bottom : 150px;
+    height: auto; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.hello{
+    margin-top:20vh;
+    margin-bottom:20vh;
+}
+
+.trendy{
+    color: #FFFFFF;
+    background-color:#007193;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 120px;
+}
+
+.custpanel{
+    padding-top : 150px;
+    padding-bottom : 150px;
+	color: #FFFFFF;
+    background-color:#007193;
+    opacity: .9
+}
+.jumbotron{
+    margin-bottom:0;
+}
+
+.trendyoff{
+    padding:20vh;
+    margin-top:0;
+    margin-bottom:0;
+}
+
+.push{
+    padding-top:20vh;
+    padding-bottom:20vh;
+    margin-top:0;
+    margin-bottom:0;
+}
+
+.bigpic{
+    background-size: cover;
+    height:auto;
+}

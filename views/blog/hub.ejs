@@ -28,7 +28,6 @@
             <a href="/blog/<%=post._id%>"><button class="btn btn-primary" style="display:block;float:right;"><i class="fa fa-angle-double-right" aria-hidden="true"></i>  Read More</button></a> 
 
     </div>
-
     </div>
 </div>
     <% }); %>
@@ -38,9 +37,9 @@
     <nav aria-label="...">
     <ul class="pager">
         <% if(pagenum !== 0){ %>
-        <li class="previous"><a href="/blog/pages/<%=pagenum - 1 %>"><span aria-hidden="true">&larr;</span>Previous</a></li>
+        <li><a href="/blog/pages/<%=pagenum - 1 %>"><span aria-hidden="true">&larr;</span>   Previous</a></li>
         <% } %>
-        <li class="next"><a href="/blog/pages/<%=pagenum + 1 %>">Next<span aria-hidden="true">&rarr;</span></a></li>
+        <li><a href="/blog/pages/<%=pagenum + 1 %>">Next   <span aria-hidden="true">&rarr;</span></a></li>
     </ul>
     </nav>
 </div>

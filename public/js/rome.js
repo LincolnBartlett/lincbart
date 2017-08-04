@@ -1,16 +1,4 @@
 $(document).ready(function() {
-	"use strict";
-	$("#btm").hide();
-	$("#ftr").hide();
-	//enables contact btn in Nav
-	$("#contactBtn").click(function() {
-		$("#btm").fadeIn("slow");
-		$("#ftr").fadeIn("slow");
-		$("html,body").animate({
-			scrollTop: $("#ftr").offset().top
-		}, 1000);
-	});
-
 	function romeNum(num) {
 		if (num <= 3000) {
 			var m;

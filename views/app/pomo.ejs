@@ -1,20 +1,20 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
-	<audio id="timeUp" src="audio/demonstrative.mp3"></audio>
-	<audio id="timeUp2" src="audio/solemn.mp3"></audio>
-
-	<div class="container-fluid col-xs-12 parallax" style="background-image: url(images/tomato.jpg); height:auto; text-align:right">
-		<div class="container-fluid col-sm-12" style="height: 100px"></div>
-
-
-		<div class="container-fluid col-sm-4 col-sm-offset-4 jumbotron">
-			<h1 id="disp" style="text-align:center;font-size: 100px">25:00</h1>
-			<h2 id="dispBre" style="text-align:center;font-size: 60px">5:00</h2>
-		</div>
-		<div class="container-fluid col-lg-12" style="height: 50px"></div>
-		<div class="parallax text-center" style="background-image: url(images/tomato.jpg);height: 800px;">
-
-			<div class="container col-sm-3 col-sm-offset-2 panel panel-default" style="text-align:center">
+<audio id="timeUp" src="audio/demonstrative.mp3"></audio>
+<audio id="timeUp2" src="audio/solemn.mp3"></audio>
+<div class="jumbotron" style="opacity: .5">
+	<div class="container">
+		<h1>Pomodoro Timer</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="container-fluid col-lg-4 col-lg-offset-4 jumbotron">
+		<h1 id="disp" style="text-align:center;font-size: 100px">25:00</h1>
+		<h2 id="dispBre" style="text-align:center;font-size: 60px">5:00</h2>
+	</div>
+	<div class="text-center"> 
+		<div class="row" style="margin-bottom:5px">
+			<div class="container col-lg-3 col-lg-offset-2 panel panel-default" style="text-align:center">
 				<div class="panel-body">
 					<h1>Set Interval Time</h1>
 					<h1 id="sesTim">25</h1>
@@ -48,7 +48,7 @@
 					</datalist><br>
 				</div>
 			</div>
-			<div class="container col-sm-2" style="text-align:center">
+			<div class="container col-lg-2" style="text-align:center">
 				<div class="well well-lg">
 					<p><a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">The Pomodoro Technique</a> is a time management method.</p>
 					<p>The technique uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short
@@ -58,7 +58,7 @@
 					<button class="btn btn-lg btn-danger" id="resetBtn">Reset</button>
 				</div>
 			</div>
-			<div class="container col-sm-3 panel panel-default" style="text-align:center">
+			<div class="container col-lg-3 panel panel-default" style="text-align:center">
 				<div class="panel-body">
 					<h1>Set Break Time</h1>
 					<h1 id="breTim">5</h1>
@@ -88,5 +88,7 @@
 					</datalist><br>
 				</div>
 			</div>
+		</div>	
+</div>
 <% include ../partials/footer %>
 <script src="/js/pomo.js"></script>
