@@ -29,7 +29,7 @@ router.get('/pages/:id', function(req, res){
                 }
                 res.render('blog/hub',{allBlogs:displayblogs,pagenum:page});
 
-            }else if(displayend < 0 && displaystart >0){
+            }else if(displayend < 0 && displaystart > 0){
                  for(var i = displaystart; i > 0; i--){
                     displayblogs.push(allBlogs[i - 1]);
                 }

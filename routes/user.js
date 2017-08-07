@@ -1,9 +1,11 @@
-var express          = require('express'),
-    router           = express.Router(),
-    User             = require('../models/userSchema'),
-    mongoose         = require('mongoose'),
-    passport         = require('passport'),
-    middleware       = require('../middleware');
+var express                   = require('express'),
+    router                    = express.Router(),
+    User                      = require('../models/userSchema'),
+    mongoose                  = require('mongoose'),
+    passport                  = require('passport'),
+    middleware                = require('../middleware'),
+    Blog                      = require('../models/blogSchema'),
+    newComment                = require('../models/commentSchema');
 
     
 //REGISTER
@@ -45,16 +47,17 @@ router.get('/logout', function(req, res){
 
 //PROFILES
 
-router.get('/profile', function(req, res){
+router.get('/profile',middleware.isLoggedIn, function(req, res){
     res.redirect('/user/profile/'+ req.user._id);
 });
 
 //SEE
 router.get('/profile/:id', function(req, res){
     User.findById(req.params.id, function(err, foundProfile){
-        res.render('./user/userprofile',{foundProfile: foundProfile});
-    });
-    
+        newComment.find({"author.id": foundProfile._id}).find(function(err, foundComments){
+            res.render('./user/userprofile',{foundProfile: foundProfile,foundComments:foundComments});
+        });
+    }); 
 });
 
 

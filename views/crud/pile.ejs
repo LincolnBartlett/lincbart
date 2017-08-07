@@ -1,0 +1,129 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+<div class= "jumbotron text-center">
+<h1> Welcome to CRUD </h1>
+<h3> create. read. update. delete </h3>
+   <% if(currentUser){ %>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#crudpost">Add to the CRUD pile</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="crudpost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="panel-body text-left">
+                <div id="window"></div>
+                <hr>
+                <form id="pilesub" action="/crud" method="post">
+                    <div class="form-group">          
+                        <input class="hidden-xs hidden-sm hiddem-md hidden-lg" id="bodyPost" type='text' name="pile[body]"></textarea>   
+                        <button class="btn btn-info" type='submit' name='submit'>Submit</button>       
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class ="panel-body text-left">
+                <div id="body"></div>
+                <button class="btn btn-primary" id="preview">Preview</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    <% }else{ %>
+        <span style="display:inline">
+        <a href="/user/register"><input class="btn btn-info" value="Sign Up"></input></a>
+        or
+        <a href="/user/login"><input class="btn btn-info" value="Log In"</input></a>
+        </span>
+    <% } %>
+</div>
+<div class="col-lg-4 col-lg-offset-4"> 
+    <% allPiles.forEach(function(pile){ %>
+        <div class="panel" style="padding:20px">
+            <div class="panel-header">
+            </div> 
+            <div class="panel-body">
+                <p><%- pile.body %></p>
+                <% if(currentUser && pile.author.id.equals(currentUser._id)){ %>
+                <form action="/crud/<%=pile.id%>?_method=DELETE" method="post">
+                    <button class="btn btn-xs btn-primary" type="submit">Delete</button>
+                </form>
+                <% } %>
+                <hr>
+                <h4>by: <a href="/user/profile/<%=pile.author.id%>"><%= pile.author.username %></a></h4>
+
+                <% if(currentUser){ %>
+                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#<%=pile.id%>">comment</button>
+                <div class="modal fade" id="<%=pile.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><%-pile.body%></p>
+                            </div>
+                            <div class="modal-footer">
+                                <form action='/crud/<%= pile.id %>/comment' method='POST'>
+                                    <div class="form-group">
+                                        <textarea class="form-control" type='text' name='comment[text]' rows="5" placeholder='Write a comment' required></textarea>
+                                        <hr>
+                                        <input class="btn btn-sm btn-primary" type='submit' name='submit'>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <% if (pile.comments.length > 0){ %>
+                    <div class="well well-lg">
+                        <div class="well-body">
+                        <% pile.comments.forEach(function(comment){ %>        
+                        <p><%= comment.text %><br>-<em><a href="/user/profile/<%=comment.author.id%>"><%= comment.author.username%></em></a></p>
+                        </div>
+                    </div>
+                        <% }); %>
+                <% } %>
+            </div>
+        </div>
+    <% }); %>   
+</div>
+
+<div class="row">
+<div class="col-lg-4 col-lg-offset-4">
+    <nav aria-label="...">
+    <ul class="pager">
+        <% if(pagenum !== 0){ %>
+        <li><a href="/crud/pile/<%=pagenum - 1 %>"><span aria-hidden="true">&larr;</span>   Previous</a></li>
+        <% } %>
+        <li><a href="/crud/pile/<%=pagenum + 1 %>">Next   <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+    </nav>
+</div>
+</div>
+<% include ../partials/footer %>
+<script src="/js/editor.js"></script>
+<link type="text/css" href="/css/editor.css" rel="stylesheet" />
+<script>
+$("#pilesub").hide();
+var editor = $("#body").Editor({
+    "fonts": false,
+    "insert_img": false,
+    "splchars": false
+});
+
+$("#preview").click(function () {
+    var post = $("#body").Editor("getText");
+    $("#pilesub").fadeIn();
+    $("#window").html(post);
+    $("#bodyPost").val(post);
+});
+</script>

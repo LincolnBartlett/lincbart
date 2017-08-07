@@ -1,4 +1,5 @@
-var Blog = require('../models/blogSchema');
+var Blog = require('../models/blogSchema'),
+    Pile = require('../models/pileSchema');
 
 
 var middleware = {};
@@ -20,6 +21,28 @@ middleware.checkBlogOwner = function(req, res, next){
         res.redirect('back');
     }
     }
+
+
+middleware.checkPileOwner = function(req, res, next){
+    if(req.isAuthenticated()){
+        Pile.findById(req.params.id, function(err, foundPile){
+            if(err){
+                res.redirect('/crud');
+            }else{
+                if(foundPile.author.id.equals(req.user._id)){
+                    next();
+                }else{
+                    res.redirect('back');
+                }
+            }
+        });
+    }else{
+        res.redirect('back');
+    }
+    }
+
+
+
 
 
 //Check Login Status
