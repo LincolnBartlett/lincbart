@@ -5,7 +5,8 @@ var express                   = require('express'),
     passport                  = require('passport'),
     middleware                = require('../middleware'),
     Blog                      = require('../models/blogSchema'),
-    newComment                = require('../models/commentSchema');
+    newComment                = require('../models/commentSchema'),
+    Pile                      = require('../models/pileSchema');
 
     
 //REGISTER
@@ -22,7 +23,7 @@ router.post('/register', function(req, res){
             return res.render('./user/register');
         }else{
             passport.authenticate('local')(req, res, function(){
-                res.redirect(' /user/profile');
+                res.redirect('/user/profile');
             });
         }
     });
@@ -55,7 +56,9 @@ router.get('/profile',middleware.isLoggedIn, function(req, res){
 router.get('/profile/:id', function(req, res){
     User.findById(req.params.id, function(err, foundProfile){
         newComment.find({"author.id": foundProfile._id}).find(function(err, foundComments){
-            res.render('./user/userprofile',{foundProfile: foundProfile,foundComments:foundComments});
+                Pile.find({"author.id": foundProfile._id}).find(function(err, foundPiles){
+                    res.render('./user/userprofile',{foundProfile: foundProfile,foundComments:foundComments,foundPiles:foundPiles});
+            });
         });
     }); 
 });

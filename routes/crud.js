@@ -18,7 +18,7 @@ router.get('/pile/:id', function(req, res){
             console.log(err);
         }else{
         var page = Number(req.params.id);
-        var displaynum = 10;
+        var displaynum = 5;
         var pagecount = page * displaynum;
         var displaystart= allPiles.length - pagecount;
         var displayend= (displaystart) - displaynum;
@@ -82,7 +82,7 @@ router.get('/:id/edit', middleware.checkPileOwner, function(req, res){
         if(err){
             res.redirect('/crud');
         }else{
-            res.render('crud/edit', {foundBlog: foundBlog});
+            res.render('crud/edit', {foundPile: foundPile});
         }
     });
 });
@@ -94,7 +94,7 @@ router.put('/:id', middleware.checkPileOwner, function(req, res){
         if(err){
             res.redirect('/crud');
         }else{
-            res.redirect('/crud/' + req.params.id);
+            res.redirect('/crud');
         }
     });
 });

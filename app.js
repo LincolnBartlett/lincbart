@@ -1,5 +1,4 @@
 var express          = require('express'),
-    app              = express(),
     ejs              = require('ejs'),
     dateFormat       = require('dateformat'),
     mongoose         = require('mongoose'),
@@ -7,10 +6,12 @@ var express          = require('express'),
     methodOverride   = require('method-override'),
     passport         = require('passport'),
     LocalStrategy    = require('passport-local'),
-    User             = require('./models/userSchema');
+    User             = require('./models/userSchema'),
+    app              = express();
 
 var port = 1901; 
 mongoose.connect('mongodb://localhost/lincbart2');
+
 
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
@@ -44,16 +45,20 @@ app.get('/front', function(req , res){
     res.render('front');
 });
 
+
+
 var appRoute     = require('./routes/app.js'),
     crudRoute    = require('./routes/crud.js'),
     blogRoute    = require('./routes/blog.js'),
-    userRoute    = require('./routes/user.js');
+    userRoute    = require('./routes/user.js'),
+    uploadRoute  = require('./routes/uploads.js');
 
 
 app.use('/app', appRoute);
 app.use('/crud', crudRoute);
 app.use('/blog', blogRoute);
 app.use('/user', userRoute);
+app.use('/upload', uploadRoute);
 
 
 app.get('/*', function(req, res){

@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var pileSchema = new mongoose.Schema({
     body: String,
+    date: { type: Date, default: Date.now },  
     author:{
         id :{
             type: mongoose.Schema.Types.ObjectId,

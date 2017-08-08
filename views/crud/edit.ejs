@@ -1,7 +1,77 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 
-SHOW CRUD EDIT
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div id="window">
+                    <%- foundPile.body %>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form id="form" action='/crud/<%= foundPile._id %>?_method=PUT' method='POST'>
+                    <div class="form-group">
+                        <button id="submit" class="btn btn-primary" type='submit' name='submit'>Submit</button>
+                        <textarea class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl" name="pile[body]" id="bodyPost"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+</div>
+<div class="row" style="margin-top:100px">
+<div class="col-lg-6 col-lg-offset-3 well well-lg">
+<div class="well-heading"><h1>Edit your CRUDpost</h1></div>
+    <div class="well-body">
+    <button id="preview" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin:auto;display:block">Preview</button>
+   <hr>
+    <div id="body"></div>
+    </div>
+</div>
+<div class="col-lg-3"></div>
+</div>
+<div class="col-md-8 col-md-offset-2 text-left">
+    <div id="body" type='text'></div>
+</div>
 
 
 <% include ../partials/footer %>
+<script src="/js/editor.js"></script>
+<link type="text/css" href="/css/editor.css" rel="stylesheet" />
+<script>
+var text = $("#window").html();
+var editor = $("#body").Editor({
+    "fonts": false,
+    "insert_img": false,
+    "splchars": false,
+    "styles": false,
+    "font_size": false,
+    "print": false,
+    "rm_format": false,
+    "togglescreen": false,
+    "source": false,
+    "insert_table": false,
+    "insert_link": false,
+    "unlink": false,
+    "strikeout":false,
+    "indent": false,
+    "outdent": false,
+    "justify": false,
+    "hr_line": false,
+    "select_all": false
+});
+
+editor = $("#body").Editor("setText", text.toString());
+$("#preview").click(function () {   
+    var post = $("#body").Editor("getText");
+    var header= $('#titletext').val();
+    $("#header").html(header);
+    $("#title").val(header);
+    $("#window").html(post);
+    $("#bodyPost").html(post);
+});
+</script>
