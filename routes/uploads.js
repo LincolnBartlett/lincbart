@@ -13,13 +13,14 @@ var storage = multer.diskStorage({
   }
 });
 
-    upload = multer({ storage: storage });
+upload = multer({ storage: storage });
 
 router.get('/', middleware.isLoggedIn, function(req, res){
     res.render('upload');
 });
 
-router.post('/', middleware.isLoggedIn, upload.single('avatar'), function (req, res) {
+router.post('/avatar', middleware.isLoggedIn, upload.single('avatar'), function (req, res) {
+    console.log(req.file);
     res.redirect('back');
 });
 

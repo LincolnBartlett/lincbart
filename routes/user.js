@@ -56,8 +56,10 @@ router.get('/profile',middleware.isLoggedIn, function(req, res){
 router.get('/profile/:id', function(req, res){
     User.findById(req.params.id, function(err, foundProfile){
         newComment.find({"author.id": foundProfile._id}).find(function(err, foundComments){
-                Pile.find({"author.id": foundProfile._id}).find(function(err, foundPiles){
-                    res.render('./user/userprofile',{foundProfile: foundProfile,foundComments:foundComments,foundPiles:foundPiles});
+            Pile.find({"author.id": foundProfile._id}).find(function(err, foundPiles){
+                Blog.find({}).find(function(err, foundBlogs){
+                    res.render('./user/userprofile',{foundProfile: foundProfile,foundComments:foundComments,foundPiles:foundPiles,foundBlogs:foundBlogs});
+                });
             });
         });
     }); 

@@ -1,26 +1,23 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
-<div class="jumbotron">
-    <div class="container">
-        <h1>CRUD Profile</h1>
-    </div>
-</div>
 <div class="row">
-    <div class="col-lg-4 col-lg-offset-2">
-        <div class="thumbnail">
+    <div class="col-lg-2 col-lg-offset-2">
+        <div class="thumbnail"style="padding:0">
             <img src="/uploads/avatar<%=foundProfile._id%>.png">
             <div class="caption">
-                <h3><%= foundProfile.username %></h3>
+                <h2><%= foundProfile.username %></h2>
                 <p>Number of Comments: <%= foundComments.length %></p>
                 <br>
+                <hr>
                 <% if(currentUser && foundProfile._id.equals(currentUser._id)){ %>
                     <div class="text-center">
-                        <form action="/blog/new" method="get">
-                            <button class="btn btn-default">Write Blog Post</button>
+                        <form action="/crud/new" method="get">
+                            <button class="btn btn-default"><i class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i> Add to CRUDpile</button>
                         </form>
                     </div>
-                    <form method="post" enctype="multipart/form-data" action="/upload">
-                        <h1>Upload a Profile Picture</h1>
+                    <hr>
+                    <form method="post" enctype="multipart/form-data" action="/upload/avatar">
+                        <h3>Upload a Profile Picture</h3>
                         <div class="well">
                             <input type="file" name="avatar">
                             <input class="btn btn-primary btn-sm" type="submit">
@@ -31,16 +28,32 @@
         </div>
     </div>
     <div class="col-lg-4">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h1>CRUD piles</h1>
-                <% foundPiles.forEach(function(pile){ %>
-                    <div class="well well-sm">
-                    <p><%- pile.body %></p>
-                    </div>
-                <% }); %>
-            </div>
-        </div>
+        <h1 class="text-center">CRUD piles</h1>
+        <hr>
+        <br>
+        <% foundPiles.forEach(function(pile){ %>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                <h4 class="text-left"><a href="/crud/<%=pile._id%>"><%= pile.date.getMonth() + 1 %>/<%= pile.date.getDate()%>/<%= pile.date.getFullYear() %></a></h4> 
+                <%- pile.body %>                           
+                <hr>
+                <p class="text-right">Comments: <%= pile.comments.length %></p>
+                </div>
+            </div>     
+        <% }); %>
+    </div>
+    <div class="col-lg-3">
+        <h1 class="text-center">Recent LincBartBlogs</h1>
+    <ul class="list-group">    
+    <% foundBlogs.reverse().forEach(function(blog){ %>
+
+           <li class="list-group-item"><a href="/blog/<%=blog._id%>"><%= blog.name %></a></li>
+
+        
+    <% }); %>
+       
+  
+    </ul>   
     </div>
 </div>  
 <% include ../partials/footer %> 
