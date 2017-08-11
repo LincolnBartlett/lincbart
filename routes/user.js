@@ -53,7 +53,7 @@ router.get('/profile',middleware.isLoggedIn, function(req, res){
 });
 
 //SEE
-router.get('/profile/:id', function(req, res){
+router.get('/profile/:id', middleware.isLoggedIn, function(req, res){
     User.findById(req.params.id, function(err, foundProfile){
         newComment.find({"author.id": foundProfile._id}).find(function(err, foundComments){
             Pile.find({"author.id": foundProfile._id}).find(function(err, foundPiles){
@@ -63,6 +63,13 @@ router.get('/profile/:id', function(req, res){
             });
         });
     }); 
+});
+
+//SEE ALL
+router.get('/all', function(req, res){
+    User.find({}, function(err, allProfiles){
+        res.render('./user/all',{allProfiles:allProfiles});
+    });
 });
 
 

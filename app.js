@@ -9,7 +9,7 @@ var express          = require('express'),
     User             = require('./models/userSchema'),
     app              = express();
 
-var port = 80; 
+var port = 1901; 
 mongoose.connect('mongodb://localhost/lincbart2');
 
 

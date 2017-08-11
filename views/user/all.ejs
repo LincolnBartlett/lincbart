@@ -1,0 +1,22 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+        <% allProfiles.forEach(function(profile){ %>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-left media-middle">
+                            <img class="thumbnail" style="height:100px;width:100px" src="/uploads/avatar<%= profile.id %>.png">
+                        </div>
+                        <div class="media-body">
+                           <h2><a href="/user/profile/<%= profile.id %>"><%= profile.username %></a></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<% include ../partials/footer %>
