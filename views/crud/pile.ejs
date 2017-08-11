@@ -134,7 +134,7 @@
                                                 <div class="media-right">
                                                     <h5 class="media-heading"><a href="/user/profile/<%=pile.comments[i].author.id%>"><%=pile.comments[i].author.username%></a></h5>
                                             <% if (currentUser) { %>
-                                                <% if(currentUser._id.equals(comment.author.id) || currentUser.username === 'Lincoln Bartlett') { %>
+                                                <% if(currentUser._id.equals(comments[i].author.id) || currentUser.username === 'Lincoln Bartlett') { %>
                                                     <form action="/crud/comment/<%=comment.id%>?_method=DELETE" method="post">
                                                         <button class="btn btn-xs btn-primary" type="submit">Delete</button>
                                                     </form>  
@@ -154,7 +154,7 @@
                                                 <div class="media-right">
                                                     <h5 class="media-heading"><a href="/user/profile/<%=pile.comments[j].author.id%>"><%=pile.comments[j].author.username%></a></h5>
                                             <% if (currentUser) { %>
-                                                <% if(currentUser._id.equals(comment.author.id) || currentUser.username === 'Lincoln Bartlett') { %>
+                                                <% if(currentUser._id.equals(comments[j].author.id) || currentUser.username === 'Lincoln Bartlett') { %>
                                                     <form action="/crud/comment/<%=comment.id%>?_method=DELETE" method="post">
                                                         <button class="btn btn-xs btn-primary" type="submit">Delete</button>
                                                     </form>  
