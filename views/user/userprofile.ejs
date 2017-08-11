@@ -1,7 +1,8 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 <div class="row">
-    <div class="col-lg-2 col-lg-offset-2">
+
+    <div class="col-lg-2 col-lg-offset-1">
         <div class="thumbnail"style="padding:0">
             <img src="/uploads/avatar<%=foundProfile._id%>.png">
             <div class="caption">
@@ -24,13 +25,13 @@
                         </div>
                     </form>
                     <hr>
-                    <form action="/user/profile/<%=foundProfile.id%>?_method=PUT" method="post" 
                         
-                <% }; %>
+                <% } %>
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    
+    <div class="col-lg-5">
         <h1 class="text-center">CRUD piles</h1>
         <hr>
         <br>
@@ -45,18 +46,15 @@
             </div>     
         <% }); %>
     </div>
+
     <div class="col-lg-3">
         <h1 class="text-center">Recent LincBartBlogs</h1>
     <ul class="list-group">    
     <% foundBlogs.reverse().forEach(function(blog){ %>
-
-           <li class="list-group-item"><a href="/blog/<%=blog._id%>"><%= blog.name %></a></li>
-
-        
+        <li class="list-group-item"><a href="/blog/<%=blog._id%>"><%= blog.name %></a></li>
     <% }); %>
-       
-  
     </ul>   
     </div>
 </div>  
+
 <% include ../partials/footer %> 

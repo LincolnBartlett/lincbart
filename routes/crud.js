@@ -3,7 +3,8 @@ var express          = require('express'),
     Pile             = require('../models/pileSchema'),
     mongoose         = require('mongoose'),
     middleware       = require('../middleware'),
-    newComment       = require('../models/commentSchema');
+    newComment       = require('../models/commentSchema'),
+    User             = require('../models/userSchema');
 
 //INDEX
 router.get('/', function(req, res){
@@ -13,32 +14,34 @@ router.get('/', function(req, res){
 //PAGES
 
 router.get('/pile/:id', function(req, res){
-    Pile.find({}).populate('comments').exec(function(err, allPiles){
-        if(err){
-            console.log(err);
-        }else{
-        var page = Number(req.params.id);
-        var displaynum = 5;
-        var pagecount = page * displaynum;
-        var displaystart= allPiles.length - pagecount;
-        var displayend= (displaystart) - displaynum;
-        var displaypiles= [];
-            if(displayend >= 0){
-                for(var i = displaystart; i > displayend ; i--){
-                    displaypiles.push(allPiles[i - 1]);
-                }
-                res.render('crud/pile',{allPiles:displaypiles,pagenum:page});
-
-            }else if(displayend < 0 && displaystart > 0){
-                 for(var i = displaystart; i > 0; i--){
-                    displaypiles.push(allPiles[i - 1]);
-                }
-                res.render('crud/pile',{allPiles:displaypiles,pagenum:page});
-
+    User.find({}, function(err, allProfiles){      
+        Pile.find({}).populate('comments').exec(function(err, allPiles){
+            if(err){
+                console.log(err);
             }else{
-                res.redirect('/crud');
+            var page = Number(req.params.id);
+            var displaynum = 5;
+            var pagecount = page * displaynum;
+            var displaystart= allPiles.length - pagecount;
+            var displayend= (displaystart) - displaynum;
+            var displaypiles= [];
+                if(displayend >= 0){
+                    for(var i = displaystart; i > displayend ; i--){
+                        displaypiles.push(allPiles[i - 1]);
+                    }
+                    res.render('crud/pile',{allPiles:displaypiles,pagenum:page, allProfiles:allProfiles});
+
+                }else if(displayend < 0 && displaystart > 0){
+                    for(var i = displaystart; i > 0; i--){
+                        displaypiles.push(allPiles[i - 1]);
+                    }
+                    res.render('crud/pile',{allPiles:displaypiles, pagenum:page, allProfiles:allProfiles});
+
+                }else{
+                    res.redirect('/crud');
+                }
             }
-        }
+        });
     });
 });
 
