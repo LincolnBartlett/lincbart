@@ -93,7 +93,7 @@
                         </form>
                     </div>
                     <% } %>
-                     <% } %>
+                    <% } %>
                     </div>
                     <% if (pile.comments.length > 0 && pile.comments.length <= 3){ %>
                         <div class="well well-lg">
@@ -102,9 +102,6 @@
                                 <li class="media">
                                     <div class="media-left media-middle">
                                         <a href="/user/profile/<%=comment.author.id%>">
-
-
-
                                         <img class="media-object" style="height:45px;width:45px" src="/uploads/avatar<%=comment.author.id%>.png"></a>
                                     </div>  
                                     <div class="media-right">
@@ -134,7 +131,7 @@
                                                 <div class="media-right">
                                                     <h5 class="media-heading"><a href="/user/profile/<%=pile.comments[i].author.id%>"><%=pile.comments[i].author.username%></a></h5>
                                             <% if (currentUser) { %>
-                                                <% if(currentUser._id.equals(comments[i].author.id) || currentUser.username === 'Lincoln Bartlett') { %>
+                                                <% if(currentUser._id.equals(pile.comments[i].author.id) || currentUser.username === 'Lincoln Bartlett') { %>
                                                     <form action="/crud/comment/<%=comment.id%>?_method=DELETE" method="post">
                                                         <button class="btn btn-xs btn-primary" type="submit">Delete</button>
                                                     </form>  
@@ -154,7 +151,7 @@
                                                 <div class="media-right">
                                                     <h5 class="media-heading"><a href="/user/profile/<%=pile.comments[j].author.id%>"><%=pile.comments[j].author.username%></a></h5>
                                             <% if (currentUser) { %>
-                                                <% if(currentUser._id.equals(comments[j].author.id) || currentUser.username === 'Lincoln Bartlett') { %>
+                                                <% if(currentUser._id.equals(pile.comments[j].author.id) || currentUser.username === 'Lincoln Bartlett') { %>
                                                     <form action="/crud/comment/<%=comment.id%>?_method=DELETE" method="post">
                                                         <button class="btn btn-xs btn-primary" type="submit">Delete</button>
                                                     </form>  
