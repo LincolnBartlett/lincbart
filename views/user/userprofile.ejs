@@ -3,6 +3,7 @@
 <div class="row">
 
     <div class="col-lg-2 col-lg-offset-1">
+        
         <div class="thumbnail"style="padding:0">
             <img src="/uploads/avatar<%=foundProfile._id%>.png">
             <div class="caption">
@@ -10,23 +11,22 @@
                 <p>Number of Comments: <%= foundComments.length %></p>
                 <br>
                 <hr>
-                <% if(currentUser && foundProfile._id.equals(currentUser._id)){ %>
-                    <div class="text-center">
-                        <form action="/crud/new" method="get">
-                            <button class="btn btn-default"><i class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i> Add to CRUDpile</button>
-                        </form>
-                    </div>
-                    <hr>
-                    <form method="post" enctype="multipart/form-data" action="/upload/avatar">
-                        <h3>Upload a Profile Picture</h3>
-                        <div class="well">
-                            <input type="file" name="avatar">
-                            <input class="btn btn-primary btn-sm" type="submit">
+                    <% if(currentUser && foundProfile._id.equals(currentUser._id)){ %>
+                        <div class="text-center">
+                            <form action="/crud/new" method="get">
+                                <button class="btn btn-default"><i class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i> Add to CRUDpile</button>
+                            </form>
                         </div>
-                    </form>
-                    <hr>
-                        
-                <% } %>
+                        <hr>
+                        <form method="post" enctype="multipart/form-data" action="/upload/avatar">
+                            <h3>Upload a Profile Picture</h3>
+                            <div class="well">
+                                <input type="file" name="avatar">
+                                <input class="btn btn-primary btn-sm" type="submit">
+                            </div>
+                        </form>
+                        <hr>
+                    <% } %>       
             </div>
         </div>
     </div>

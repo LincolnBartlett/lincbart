@@ -4,6 +4,14 @@ var Blog = require('../models/blogSchema'),
 
 var middleware = {};
 
+middleware.isMe = function(req, res, next){
+    if(req.user.username === 'Lincoln Bartlett'){
+        next();
+    } else{
+        res.redirect('back');
+    }
+}
+
 middleware.checkBlogOwner = function(req, res, next){
     if(req.isAuthenticated()){
         Blog.findById(req.params.id, function(err, foundBlog){
@@ -29,7 +37,7 @@ middleware.checkPileOwner = function(req, res, next){
             if(err){
                 res.redirect('/crud');
             }else{
-                if(foundPile.author.id.equals(req.user._id)){
+                if(foundPile.author.id.equals(req.user._id) || (req.user.username === 'Lincoln Bartlett')){
                     next();
                 }else{
                     res.redirect('back');

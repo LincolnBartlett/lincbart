@@ -151,6 +151,15 @@ router.post('/:id/comment', middleware.isLoggedIn, function(req, res){
     });
 });
 
-
+//DELETE
+router.delete('/comment/:id', middleware.isLoggedIn, function(req, res){
+    newComment.findByIdAndRemove(req.params.id, function(err, foundComment){
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect('back');
+        }
+    });
+});
 
 module.exports = router;

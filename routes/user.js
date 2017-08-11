@@ -55,15 +55,20 @@ router.get('/profile',middleware.isLoggedIn, function(req, res){
 //SEE
 router.get('/profile/:id', middleware.isLoggedIn, function(req, res){
     User.findById(req.params.id, function(err, foundProfile){
-        newComment.find({"author.id": foundProfile._id}).find(function(err, foundComments){
-            Pile.find({"author.id": foundProfile._id}).find(function(err, foundPiles){
-                Blog.find({}).find(function(err, foundBlogs){
-                    res.render('./user/userprofile',{foundProfile: foundProfile,foundComments:foundComments,foundPiles:foundPiles,foundBlogs:foundBlogs});
+        if(err){
+            res.redirect('back');
+        }else{
+            newComment.find({"author.id": foundProfile._id}).find(function(err, foundComments){
+                Pile.find({"author.id": foundProfile._id}).find(function(err, foundPiles){
+                    Blog.find({}).find(function(err, foundBlogs){
+                        res.render('./user/userprofile',{foundProfile: foundProfile,foundComments:foundComments,foundPiles:foundPiles,foundBlogs:foundBlogs});
+                    });
                 });
             });
-        });
-    }); 
+        }
+    });    
 });
+
 
 //SEE ALL
 router.get('/all', function(req, res){
@@ -72,6 +77,16 @@ router.get('/all', function(req, res){
     });
 });
 
+//DELETE
+router.delete('/:id', middleware.isMe, function(req, res){
+    User.findByIdAndRemove(req.params.id, function(err, foundUser){
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect('back');
+        }
+    });
+});
 
 
 

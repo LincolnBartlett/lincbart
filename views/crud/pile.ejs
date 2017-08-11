@@ -12,7 +12,7 @@
         </div>  
     <% } %>
 
-<div class="col-lg-2 col-lg-offset-1">
+<div class="hidden-sm hidden-xs hidden-md col-lg-2 col-lg-offset-1"style="position:fixed">
     <%if (currentUser) { %>
         <div class="thumbnail"style="padding:0">
             <img src="/uploads/avatar<%=currentUser.id%>.png">
@@ -21,11 +21,16 @@
                 <h2><a href="/user/profile/<%=currentUser.id%>"><%= currentUser.username %></h2></a>
                 <!-- Button trigger modal -->
                 <hr>
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#crudpost"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#crudpostlg"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
                 <h4>Add to the CRUDpile</h4>
                 </div>
+
+            </div>
+        </div>
+    <% } %>
+</div>
                 <!-- Modal -->
-                <div class="modal fade" id="crudpost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal fade" id="crudpostlg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -52,15 +57,16 @@
                     </div>
                 </div>
                 </div>
-            </div>
-        </div>
-    <% } %>
-</div>
 
 
-<div class="col-lg-5"> 
-    <div class="jumbotron">
-        <h1 class="text-center">CRUD pile </h1>
+<div class="col-lg-5 col-lg-offset-3"> 
+    <div class="jumbotron text-center">
+        <h1>CRUD pile </h1>
+        <% if(currentUser) { %>
+        <br>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#crudpostlg"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
+        <h4>Add to the CRUDpile</h4>
+        <% } %>
     </div>
     <hr>
     <% allPiles.forEach(function(pile){ %>
@@ -76,8 +82,8 @@
                         <h4 class="media-heading"><a href="/user/profile/<%=pile.author.id%>"><%= pile.author.username %></a></h4>
                         <p><a href="/crud/<%=pile._id%>"><%= pile.date.getMonth() + 1 %>/<%= pile.date.getDate()%>/<%= pile.date.getFullYear() %></a></p>
                         <p><%- pile.body %></p>
-
-                    <% if(currentUser && pile.author.id.equals(currentUser._id)){ %>
+                     <% if(currentUser) { %>
+                    <% if(currentUser && pile.author.id.equals(currentUser._id)|| (currentUser.username == "Lincoln Bartlett")){ %>
                     <div class="well-sm">
                         <form action="/crud/<%=pile.id%>?_method=DELETE" method="post"style="display:inline">
                             <button class="btn btn-xs btn-primary" type="submit">Delete</button>
@@ -87,7 +93,7 @@
                         </form>
                     </div>
                     <% } %>
-                     
+                     <% } %>
                     </div>
                     <% if (pile.comments.length > 0 && pile.comments.length <= 3){ %>
                         <div class="well well-lg">
@@ -96,10 +102,20 @@
                                 <li class="media">
                                     <div class="media-left media-middle">
                                         <a href="/user/profile/<%=comment.author.id%>">
+
+
+
                                         <img class="media-object" style="height:45px;width:45px" src="/uploads/avatar<%=comment.author.id%>.png"></a>
                                     </div>  
                                     <div class="media-right">
                                         <h5 class="media-heading"><a href="/user/profile/<%=comment.author.id%>"><%= comment.author.username%></a></h5>
+                                            <% if (currentUser) { %>
+                                                <% if(currentUser._id.equals(comment.author.id) || currentUser.username === 'Lincoln Bartlett') { %>
+                                                    <form action="/crud/comment/<%=comment.id%>?_method=DELETE" method="post">
+                                                        <button class="btn btn-xs btn-primary" type="submit">Delete</button>
+                                                    </form>  
+                                                <% } %>
+                                            <% } %>
                                         <p><%= comment.text %></p>
                                     </div>
                                 </li>
@@ -117,6 +133,13 @@
                                             </div> 
                                                 <div class="media-right">
                                                     <h5 class="media-heading"><a href="/user/profile/<%=pile.comments[i].author.id%>"><%=pile.comments[i].author.username%></a></h5>
+                                            <% if (currentUser) { %>
+                                                <% if(currentUser._id.equals(comment.author.id) || currentUser.username === 'Lincoln Bartlett') { %>
+                                                    <form action="/crud/comment/<%=comment.id%>?_method=DELETE" method="post">
+                                                        <button class="btn btn-xs btn-primary" type="submit">Delete</button>
+                                                    </form>  
+                                                <% } %>
+                                            <% } %>
                                                     <p><%=pile.comments[i].text%></p>
                                             </div>
                                         </li>
@@ -130,6 +153,13 @@
                                             </div> 
                                                 <div class="media-right">
                                                     <h5 class="media-heading"><a href="/user/profile/<%=pile.comments[j].author.id%>"><%=pile.comments[j].author.username%></a></h5>
+                                            <% if (currentUser) { %>
+                                                <% if(currentUser._id.equals(comment.author.id) || currentUser.username === 'Lincoln Bartlett') { %>
+                                                    <form action="/crud/comment/<%=comment.id%>?_method=DELETE" method="post">
+                                                        <button class="btn btn-xs btn-primary" type="submit">Delete</button>
+                                                    </form>  
+                                                <% } %>
+                                            <% } %>
                                                     <p><%=pile.comments[j].text%></p>
                                             </div>
                                         </li>
@@ -163,7 +193,8 @@
     <% }); %>   
 </div>
 
-<div class="col-lg-3">
+<div class="hidden-sm hidden-xs hidden-md col-lg-3 col-lg-offset-8"style="position:fixed">
+     <% if(currentUser){ %>
     <h1 class="text-center">CRUD users </h1>
     <hr>
      <div style="overflow:auto;height: 60vh">
@@ -176,13 +207,21 @@
                         </div>
                         <div class="media-body">
                            <h3><a href="/user/profile/<%= profile.id %>"><%= profile.username %></a></h3>
+                           <% if(currentUser.username === 'Lincoln Bartlett') { %>
+                                <form action="/user/<%=profile.id%>?_method=DELETE" method="post">
+                                    <button class="btn btn-xs btn-primary" type="submit">Delete</button>
+                                </form>  
+                           <% } %>
                         </div>
                     </div>
                 </div>
            </div> 
         <% }); %>
     </div>
+    <% } %>   
 </div>
+
+
 
 
 

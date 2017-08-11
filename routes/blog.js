@@ -100,7 +100,7 @@ router.put('/:id', middleware.checkBlogOwner, function(req, res){
 });
 
 //DELETE
-router.delete('/:id', middleware.checkBlogOwner, function(req, res){
+router.delete('/:id', middleware.checkBlogOwner, middleware.isMe, function(req, res){
     Blog.findByIdAndRemove(req.params.id, function(err, foundBlog){
         if(err){
             console.log(err);
