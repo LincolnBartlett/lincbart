@@ -43,12 +43,12 @@ router.get('/pages/:id', function(req, res){
 });
 
 //NEW
-router.get('/new', middleware.isLoggedIn, function(req, res){
+router.get('/new', middleware.isLoggedIn, middleware.isMe, function(req, res){
     res.render('blog/new');
 });
 
 //CREATE
-router.post('/', middleware.isLoggedIn, function(req, res){
+router.post('/', middleware.isLoggedIn, middleware.isMe, function(req, res){
     var name= req.body.blog.name;
     var body= req.body.blog.body;
     var author={
