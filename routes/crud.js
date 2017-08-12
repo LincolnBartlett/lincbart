@@ -4,7 +4,8 @@ var express          = require('express'),
     mongoose         = require('mongoose'),
     middleware       = require('../middleware'),
     newComment       = require('../models/commentSchema'),
-    User             = require('../models/userSchema');
+    User             = require('../models/userSchema'),
+    expressSanitizer = require('express-sanitizer');
 
 //INDEX
 router.get('/', function(req, res){
@@ -52,6 +53,7 @@ router.get('/new', middleware.isLoggedIn, function(req, res){
 
 //CREATE
 router.post('/', middleware.isLoggedIn, function(req, res){
+    req.body.pile.body = req.sanitize(req.body.pile.body);
     var name= req.body.pile.name;
     var body= req.body.pile.body;
     var author={
@@ -93,6 +95,7 @@ router.get('/:id/edit', middleware.checkPileOwner, function(req, res){
 
 //UPDATE
 router.put('/:id', middleware.checkPileOwner, function(req, res){
+    req.body.pile = req.sanitize(req.body.pile);
     Pile.findByIdAndUpdate(req.params.id, req.body.pile, function(err,foundPile){
         if(err){
             res.redirect('/crud');

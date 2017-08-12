@@ -108,7 +108,7 @@ router.delete('/:id', middleware.checkBlogOwner, middleware.isMe, function(req, 
             res.redirect('/blog/hub');
         }
     });
-});
+}); 
 
 
 

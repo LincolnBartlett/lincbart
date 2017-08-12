@@ -7,7 +7,8 @@ var express          = require('express'),
     passport         = require('passport'),
     LocalStrategy    = require('passport-local'),
     User             = require('./models/userSchema'),
-    app              = express();
+    app              = express(),
+    expressSanitizer = require('express-sanitizer');
 
 var port = 1901; 
 mongoose.connect('mongodb://localhost/lincbart2');
@@ -17,7 +18,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
-
+app.use(expressSanitizer());
 
 //PASSPORT
 app.use(require('express-session')({

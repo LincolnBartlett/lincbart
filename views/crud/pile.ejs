@@ -21,51 +21,32 @@
                 <h2><a href="/user/profile/<%=currentUser.id%>"><%= currentUser.username %></h2></a>
                 <!-- Button trigger modal -->
                 <hr>
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#crudpostlg"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
+                <button id="crudBtn" type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#crudpost"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
                 <h4>Add to the CRUDpile</h4>
                 </div>
-
             </div>
         </div>
     <% } %>
 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="crudpostlg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="panel-body text-left">
-                            <div id="window"></div>
-                            <hr>
-                            <form id="pilesub" action="/crud" method="post">
-                                <div class="form-group">          
-                                    <input class="hidden-xs hidden-sm hiddem-md hidden-lg" id="bodyPost" type='text' name="pile[body]"></textarea>  
-                                    <button class="btn btn-info" type='submit' name='submit'>Submit</button>       
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class ="panel-body text-left">
-                            <div id="body"></div>
-                            <button class="btn btn-primary" id="preview">Preview</button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-
 
 <div class="col-lg-5 col-lg-offset-3"> 
-    <div class="jumbotron text-center">
+    <div id="crudPile" class="jumbotron text-center">
         <h1>CRUD pile </h1>
         <% if(currentUser) { %>
         <br>
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#crudpostlg"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#crudpost"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
         <h4>Add to the CRUDpile</h4>
+            <div class="collapse" id="crudpost">
+                <div class="panel-body">
+                    <form action='/crud' method='POST'>
+                        <div class="form-group">
+                            <textarea class="form-control" type='text' name='pile[body]' rows="5" placeholder='Write a pile' style="resize: vertical" required></textarea>
+                            <br>
+                            <input class="btn btn-lg btn-primary" type='submit' name='submit'>
+                        </div>
+                    </form>
+                </div>
+            </div>
         <% } %>
     </div>
     <hr>
@@ -235,35 +216,12 @@
 </div>
 </div>
 <% include ../partials/footer %>
-<script src="/js/editor.js"></script>
-<link type="text/css" href="/css/editor.css" rel="stylesheet" />
 <script>
-$("#pilesub").hide();
-var editor = $("#body").Editor({
-    "fonts": false,
-    "insert_img": false,
-    "splchars": false,
-    "styles": false,
-    "font_size": false,
-    "print": false,
-    "rm_format": false,
-    "togglescreen": false,
-    "source": false,
-    "insert_table": false,
-    "insert_link": false,
-    "unlink": false,
-    "strikeout":false,
-    "indent": false,
-    "outdent": false,
-    "justify": false,
-    "hr_line": false,
-    "select_all": false
-});
-
-$("#preview").click(function () {
-    var post = $("#body").Editor("getText");
-    $("#pilesub").fadeIn();
-    $("#window").html(post);
-    $("#bodyPost").val(post);
+$(document).ready(function() {
+    $("#crudBtn").click(function() {
+        $('html, body').animate({
+            scrollTop: $("#crudPile").offset().top
+        }, 1500);
+    });
 });
 </script>
