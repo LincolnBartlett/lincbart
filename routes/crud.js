@@ -46,10 +46,7 @@ router.get('/pile/:id', function(req, res){
     });
 });
 
-//NEW
-router.get('/new', middleware.isLoggedIn, function(req, res){
-    res.render('crud/new');
-});
+
 
 //CREATE
 router.post('/', middleware.isLoggedIn, function(req, res){

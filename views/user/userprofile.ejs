@@ -11,22 +11,21 @@
                 <p>Number of Comments: <%= foundComments.length %></p>
                 <br>
                 <hr>
-                    <% if(currentUser && foundProfile._id.equals(currentUser._id)){ %>
-                        <div class="text-center">
-                            <form action="/crud/new" method="get">
-                                <button class="btn btn-default"><i class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i> Add to CRUDpile</button>
-                            </form>
-                        </div>
-                        <hr>
-                        <form method="post" enctype="multipart/form-data" action="/upload/avatar">
-                            <h3>Upload a Profile Picture</h3>
-                            <div class="well">
-                                <input type="file" name="avatar">
-                                <input class="btn btn-primary btn-sm" type="submit">
-                            </div>
-                        </form>
-                        <hr>
-                    <% } %>       
+            <% if(currentUser && foundProfile._id.equals(currentUser._id)){ %>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#crudpost"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
+                    <h4>Add to the CRUDpile</h4>
+                </div>
+                <hr>
+                <form method="post" enctype="multipart/form-data" action="/upload/avatar">
+                    <h3>Upload a Profile Picture</h3>
+                    <div class="well">
+                        <input type="file" name="avatar">
+                        <input class="btn btn-primary btn-sm" type="submit">
+                    </div>
+                </form>
+            <hr>
+            <% } %>       
             </div>
         </div>
     </div>
@@ -34,6 +33,17 @@
     <div class="col-lg-5">
         <h1 class="text-center">CRUD piles</h1>
         <hr>
+            <div class="collapse" id="crudpost">
+                <div class="panel-body">
+                    <form action='/crud' method='POST'>
+                        <div class="form-group">
+                            <textarea class="form-control" type='text' name='pile[body]' rows="5" placeholder='Write a pile' style="resize: vertical" required></textarea>
+                            <br>
+                            <input class="btn btn-lg btn-primary" type='submit' name='submit'>
+                        </div>
+                    </form>
+                </div>
+            </div>
         <br>
         <% foundPiles.forEach(function(pile){ %>
             <div class="panel panel-default">
