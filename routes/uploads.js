@@ -9,6 +9,7 @@ var storage = multer.diskStorage({
     cb(null, 'public/uploads/')
   },
   filename: function (req, file, cb) {
+    console.log(file);
     cb(null, file.fieldname + req.user._id + '.png')
   }
 });
@@ -20,7 +21,6 @@ router.get('/', middleware.isLoggedIn, function(req, res){
 });
 
 router.post('/avatar', middleware.isLoggedIn, upload.single('avatar'), function (req, res) {
-    console.log(req.file);
     res.redirect('back');
 });
 

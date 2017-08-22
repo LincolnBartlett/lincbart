@@ -1,47 +1,43 @@
 <% include ../partials/header %>
-<% include ../partials/nav %>   
-<div class="jumbotron">
-    <div class="container">
-        <h1>Blog</h1>
-    </div>
-</div>
+<% include ../partials/nav %>
+<!--BLOG PANEL--> 
 <div class="row">
     <% allBlogs.forEach(function(post){ %> 
 <div class="panel panel-default col-lg-6 col-lg-offset-3">
     <div class="panel-body">
-  
-    <div class="jumbotron text-right" style="padding:10px">
-        <h1><%= post.name %></h1>
-        <h2><%= post.author.username %></h2>
-        <p><%= post.date.getMonth() + 1 %>/<%= post.date.getDate()%>/<%= post.date.getFullYear() %></p>
-    </div>
-    <div>
-        <%- `<section>${post.body.substring(0,3500)}<h1 class="text-center">...</h1></section>` %>  
-            <hr>    
-            <p class="text-right">
-                <% if (post.comments.length === 1){ %>
-                    <%= post.comments.length %> comment
-                <% } else{ %>
-                    <%= post.comments.length %> comments
-                <% } %>
-            </p>
-            <a href="/blog/<%=post._id%>"><button class="btn btn-primary" style="display:block;float:right;"><i class="fa fa-angle-double-right" aria-hidden="true"></i>  Read More</button></a> 
+        <div class="jumbotron text-right" style="padding:10px">
+            <h1><%= post.name %></h1>
+            <h2><%= post.author.username %></h2>
+            <p><%= post.date.getMonth() + 1 %>/<%= post.date.getDate()%>/<%= post.date.getFullYear() %></p>
+        </div>
+        <div>
+            <%- `<section>${post.body.substring(0,3500)}<h1 class="text-center">...</h1></section>` %>  
+                <hr>    
+                <p class="text-right">
+                    <% if (post.comments.length === 1){ %>
+                        <%= post.comments.length %> comment
+                    <% } else{ %>
+                        <%= post.comments.length %> comments
+                    <% } %>
+                </p>
+                <a href="/blog/<%=post._id%>"><button class="btn btn-primary" style="display:block;float:right;"><i class="fa fa-angle-double-right" aria-hidden="true"></i>  Read More</button></a> 
 
-    </div>
+        </div>
     </div>
 </div>
     <% }); %>
 </div>
+<!--PAGES-->
 <div class="row">
-<div class="col-lg-4 col-lg-offset-4">
-    <nav aria-label="...">
-    <ul class="pager">
-        <% if(pagenum !== 0){ %>
-        <li><a href="/blog/pages/<%=pagenum - 1 %>"><span aria-hidden="true">&larr;</span>   Previous</a></li>
-        <% } %>
-        <li><a href="/blog/pages/<%=pagenum + 1 %>">Next   <span aria-hidden="true">&rarr;</span></a></li>
-    </ul>
-    </nav>
-</div>
+    <div class="col-lg-4 col-lg-offset-4">
+        <nav aria-label="...">
+        <ul class="pager">
+            <% if(pagenum !== 0){ %>
+            <li><a href="/blog/pages/<%=pagenum - 1 %>"><span aria-hidden="true">&larr;</span>   Previous</a></li>
+            <% } %>
+            <li><a href="/blog/pages/<%=pagenum + 1 %>">Next   <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+        </nav>
+    </div>
 </div>
 <% include ../partials/footer %>

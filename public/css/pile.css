@@ -1,0 +1,29 @@
+.portrait-crop{
+    position: relative; 
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    
+}
+.portrait-crop-sm{
+    position: relative; 
+    height: 75px;
+    width: 75px;
+    overflow: hidden;
+}
+.portrait-crop img {
+    position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
+}
+.portrait-crop-sm img {
+    position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
+}

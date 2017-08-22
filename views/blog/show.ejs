@@ -1,17 +1,15 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
-
+<!-- JUMBO HEADER -->
 <div class="jumbotron">
     <div class="container">
         <h1><%= foundBlog.name %></h1>
         <h2>a blogpost by <%= foundBlog.author.username %></h2>
         <p>on <%= foundBlog.date.getMonth() + 1 %>/<%= foundBlog.date.getDate()%>/<%= foundBlog.date.getFullYear() %>  </p>
-        <button class="btn btn-primary" onclick="goBack()">Go Back</button>
     </div>
 </div> 
-
+<!--BLOG PANEL -->
 <div class="row">
-
     <div class="panel panel-default col-lg-5 col-lg-offset-2" style="margin-right:20px;padding:25px;">   
     <% if(currentUser && foundBlog.author.id.equals(currentUser._id)){ %>
             <div class="text-right">
@@ -26,10 +24,7 @@
     <div class="panel-body">
         <%- foundBlog.body %>
         </div>
-
     </div>
-
-
     <% if(foundBlog.comments.length > 0) { %>   
     <div class="container panel panel-default col-lg-3">
     <div class="panel-body">
@@ -49,7 +44,7 @@
     </div>
 </div>
     <% } %>
-
+<!--COMMENT PANEL -->
     <% if (currentUser){ %>
 <div class="panel panel-default col-lg-3">
     <div class="panel-body">
@@ -65,12 +60,24 @@
         </form>
     </div>
 </div>
-<% } %>
-
+<% }else{ %>
+<div class="panel panel-default col-lg-3 text-center">
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="panel-body">
+            <h1> Login to Comment</h1>
+            <i class="fa fa-5x fa-pencil-square-o"></i>
+            <hr>
+            <div class="form-group">
+                <form action="/user/login" method="POST">
+                    <input class="form-control" type="text" placeholder="username" name="username"></input>
+                    <input class="form-control" type="password" placeholder="password" name="password"></input>
+                    <hr>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div> 
 </div>
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
+<% } %>
+</div>
 <% include ../partials/footer %>
