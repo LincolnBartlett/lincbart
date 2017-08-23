@@ -23,11 +23,17 @@ router.post('/register', function(req, res){
             return res.render('./user/register');
         }else{
             passport.authenticate('local')(req, res, function(){
-                res.redirect('/user/profile');
+                res.redirect('/user/profilepic');
             });
         }
     });
 });
+
+
+router.get('/profilepic', function(req, res){
+    res.render('./user/profilepic');
+});
+
 
 //LOGIN
 router.get('/login',middleware.isAlreadyLoggedIn, function(req, res){

@@ -1,14 +1,14 @@
 .portrait-crop{
     position: relative; 
-    height: 100px;
-    width: 100px;
+    height: 90px;
+    width: 90px;
     overflow: hidden;
     
 }
 .portrait-crop-sm{
     position: relative; 
-    height: 75px;
-    width: 75px;
+    height: 70px;
+    width: 70px;
     overflow: hidden;
 }
 .portrait-crop img {
@@ -26,4 +26,12 @@
     left: -9999px;
     right: -9999px;
     margin: auto;
+}
+
+.parallax { 
+    height: auto; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
 }

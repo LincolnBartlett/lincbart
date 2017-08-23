@@ -1,35 +1,33 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
+<!-- LEFT PANEL -->
 <div class="row">
-
-    <div class="col-lg-2 col-lg-offset-1">
-        
+    <div class="col-lg-2 col-lg-offset-1">   
         <div class="thumbnail"style="padding:0">
-            <img src="/uploads/avatar<%=foundProfile._id%>.png">
+            <img src="/uploads/avatar/<%=foundProfile._id%>.png">
             <div class="caption">
                 <h2><%= foundProfile.username %></h2>
                 <p>Number of Comments: <%= foundComments.length %></p>
                 <br>
-                <hr>
             <% if(currentUser && foundProfile._id.equals(currentUser._id)){ %>
+                <form method="post" enctype="multipart/form-data" action="/upload/avatar">
+                    <h3>Change Profile Picture</h3>
+                    <div class="well">
+                        <input type="file" name="avatar" accept="image/jpeg,image/png">
+                        <br>
+                        <input class="btn btn-primary btn-sm" type="submit">
+                    </div>
+                </form>
+                <hr>
                 <div class="text-center">
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#crudpost"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
                     <h4>Add to the CRUDpile</h4>
                 </div>
-                <hr>
-                <form method="post" enctype="multipart/form-data" action="/upload/avatar">
-                    <h3>Upload a Profile Picture</h3>
-                    <div class="well">
-                        <input type="file" name="avatar">
-                        <input class="btn btn-primary btn-sm" type="submit">
-                    </div>
-                </form>
-            <hr>
             <% } %>       
             </div>
         </div>
     </div>
-    
+  <!-- CENTER PANEL -->  
     <div class="col-lg-5">
         <h1 class="text-center">CRUD piles</h1>
         <hr>
@@ -56,7 +54,7 @@
             </div>     
         <% }); %>
     </div>
-
+<!-- RIGHT PANEL -->
     <div class="col-lg-3">
         <h1 class="text-center">Recent LincBartBlogs</h1>
     <ul class="list-group">    
@@ -66,5 +64,4 @@
     </ul>   
     </div>
 </div>  
-
 <% include ../partials/footer %> 

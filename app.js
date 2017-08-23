@@ -47,19 +47,18 @@ app.get('/front', function(req , res){
 });
 
 
-
-var appRoute     = require('./routes/app.js'),
-    crudRoute    = require('./routes/crud.js'),
-    blogRoute    = require('./routes/blog.js'),
-    userRoute    = require('./routes/user.js'),
-    uploadRoute  = require('./routes/uploads.js');
+var appRoute        = require('./routes/app.js'),
+    crudRoute       = require('./routes/crud.js'),
+    blogRoute       = require('./routes/blog.js'),
+    userRoute       = require('./routes/user.js'),
+    avatarRoute     = require('./routes/avatar.js');
 
 
 app.use('/app', appRoute);
 app.use('/crud', crudRoute);
 app.use('/blog', blogRoute);
 app.use('/user', userRoute);
-app.use('/upload', uploadRoute);
+app.use('/upload/avatar', avatarRoute);
 
 
 app.get('/*', function(req, res){

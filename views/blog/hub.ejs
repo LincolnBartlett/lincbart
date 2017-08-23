@@ -1,29 +1,36 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
+<link rel="stylesheet" href ="/css/blog.css" type="text/css">
 <!--BLOG PANEL--> 
 <div class="row">
     <% allBlogs.forEach(function(post){ %> 
-<div class="panel panel-default col-lg-6 col-lg-offset-3">
-    <div class="panel-body">
-        <div class="jumbotron text-right" style="padding:10px">
-            <h1><%= post.name %></h1>
-            <h2><%= post.author.username %></h2>
-            <p><%= post.date.getMonth() + 1 %>/<%= post.date.getDate()%>/<%= post.date.getFullYear() %></p>
+<div class="col-lg-6 col-lg-offset-3">
+    <div class="thumbnail"style="padding:0px">
+        <div class="parallax" style="background-image: url('/images/javaCode.jpg')">
+            <div class="jumbotron text-right trendy"style="padding-right:20px">
+                <h1><%= post.name %></h1>
+                <h2><%= post.author.username %></h2>
+                <p><%= post.date.getMonth() + 1 %>/<%= post.date.getDate()%>/<%= post.date.getFullYear() %></p>
+            </div>
         </div>
-        <div>
-            <%- `<section>${post.body.substring(0,3500)}<h1 class="text-center">...</h1></section>` %>  
-                <hr>    
+    
+        <div class="caption">
+           
+                <div class="panel-body">
+                    <%- `<section>${post.body.substring(0,3500)}<div class="text-center"><i class="fa fa-2x fa-ellipsis-h" aria-hidden="true"></i></div></section>` %> 
+                </div>
+            
                 <p class="text-right">
                     <% if (post.comments.length === 1){ %>
                         <%= post.comments.length %> comment
                     <% } else{ %>
                         <%= post.comments.length %> comments
                     <% } %>
+                    <br>
+                <a href="/blog/<%=post._id%>"><button class="btn btn-primary"><i class="fa fa-angle-double-right" aria-hidden="true"></i>  Read More</button></a> 
                 </p>
-                <a href="/blog/<%=post._id%>"><button class="btn btn-primary" style="display:block;float:right;"><i class="fa fa-angle-double-right" aria-hidden="true"></i>  Read More</button></a> 
-
         </div>
-    </div>
+    </div>    
 </div>
     <% }); %>
 </div>

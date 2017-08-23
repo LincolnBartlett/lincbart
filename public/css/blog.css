@@ -1,0 +1,22 @@
+.parallax { 
+    height: auto; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.trendy {
+    color: #FFFFFF;
+    background-color:rgba(124, 124, 124, 0.74);
+}
+
+.trendy h1 {
+    color: #FFFFFF;
+
+}
+
+.trendy h2 {
+    color: #FFFFFF;
+ 
+}
