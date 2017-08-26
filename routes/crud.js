@@ -49,7 +49,7 @@ router.get('/pile/:id', function(req, res){
 
 
 //CREATE
-router.post('/', middleware.isLoggedIn, function(req, res){
+router.post('/', middleware.isLoggedIn, middleware.isGuest, function(req, res){
     req.body.pile.body = req.sanitize(req.body.pile.body);
     var name= req.body.pile.name;
     var body= req.body.pile.body;
@@ -79,7 +79,7 @@ router.get('/:id', function(req, res){
 });
 
 //EDIT
-router.get('/:id/edit', middleware.checkPileOwner, function(req, res){
+router.get('/:id/edit', middleware.checkPileOwner, middleware.isGuest, function(req, res){
     Pile.findById(req.params.id, function(err, foundPile){
         if(err){
             res.redirect('/crud');
@@ -91,7 +91,7 @@ router.get('/:id/edit', middleware.checkPileOwner, function(req, res){
 
 
 //UPDATE
-router.put('/:id', middleware.checkPileOwner, function(req, res){
+router.put('/:id', middleware.checkPileOwner, middleware.isGuest, function(req, res){
     req.body.pile = req.sanitize(req.body.pile);
     Pile.findByIdAndUpdate(req.params.id, req.body.pile, function(err,foundPile){
         if(err){
@@ -103,7 +103,7 @@ router.put('/:id', middleware.checkPileOwner, function(req, res){
 });
 
 //DELETE
-router.delete('/:id', middleware.checkPileOwner, function(req, res){
+router.delete('/:id', middleware.checkPileOwner, middleware.isGuest, function(req, res){
     Pile.findByIdAndRemove(req.params.id, function(err, foundPile){
         if(err){
             console.log(err);
@@ -130,7 +130,7 @@ router.get('/:id/comment/new', function(req, res){
 });
 
 //CREATE
-router.post('/:id/comment', middleware.isLoggedIn, function(req, res){
+router.post('/:id/comment', middleware.isLoggedIn, middleware.isGuest, function(req, res){
     Pile.findById(req.params.id, function(err, foundPile){   
         if(err){
             console.log(err);
@@ -151,8 +151,19 @@ router.post('/:id/comment', middleware.isLoggedIn, function(req, res){
     });
 });
 
+//UPDATE
+router.put('/:id', middleware.checkPileOwner, middleware.isGuest, function(req, res){
+    newComment.findByIdAndUpdate(req.params.id, req.body.pile, function(err,foundComment){
+        if(err){
+            res.redirect('/crud');
+        }else{
+            res.redirect('back');
+        }
+    });
+});
+
 //DELETE
-router.delete('/comment/:id', middleware.isLoggedIn, function(req, res){
+router.delete('/comment/:id', middleware.isLoggedIn, middleware.isGuest, function(req, res){
     newComment.findByIdAndRemove(req.params.id, function(err, foundComment){
         if(err){
             console.log(err);

@@ -12,6 +12,14 @@ middleware.isMe = function(req, res, next){
     }
 }
 
+middleware.isGuest = function(req, res, next){
+    if(req.user.username === 'Guest'){
+        res.redirect('back');
+    } else{
+        next();   
+    }
+}
+
 middleware.checkBlogOwner = function(req, res, next){
     if(req.isAuthenticated()){
         Blog.findById(req.params.id, function(err, foundBlog){

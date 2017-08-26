@@ -41,7 +41,7 @@ router.get('/login',middleware.isAlreadyLoggedIn, function(req, res){
 });
 
 router.post('/login', passport.authenticate('local',{
-    successRedirect:'back',
+    successRedirect:'/crud',
     failureRedirect: '/user/login'
 }) , function(req, res){});
 

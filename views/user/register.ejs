@@ -10,15 +10,24 @@
         <div class="panel-body">
             <h1>Register</h1>
             <hr>
+            <div class="form-group">
+                <form action="/user/register" method="POST">
+                    <input class="form-control" type="text" placeholder="username" name="username"></input>
+                    <input class="form-control" type="password" placeholder="password" name="password"></input>
+                    <hr>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+            </div> 
+            <h1>Or</h1>
+            <hr>   
+            <h1>Login as Guest</h1>
                 <div class="form-group">
-                    <form action="/user/register" method="POST">
-                        <input class="form-control" type="text" placeholder="username" name="username"></input>
-                        <input class="form-control" type="password" placeholder="password" name="password"></input>
-                        <hr>
+                    <form action="/user/login" method="POST">
+                        <input class="form-control hidden-xs hidden-sm hidden-md hidden-lg" type="text" placeholder="username" name="username"value="Guest"></input>
+                        <input class="form-control hidden-xs hidden-sm hidden-md hidden-lg" type="password" placeholder="password" name="password"value="guest"></input>
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </form>
-                </div>    
-            </div>
+                </div>
         </div>
     </div>
 </div>  

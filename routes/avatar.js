@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
 
 upload = multer({ storage: storage });
 
-router.post('/', middleware.isLoggedIn, upload.single('avatar'), function (req, res) {
+router.post('/', middleware.isLoggedIn, middleware.isGuest, upload.single('avatar'), function (req, res) {
     res.redirect('/user/profile');
 });
 
