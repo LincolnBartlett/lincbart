@@ -1,0 +1,227 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+
+
+   <% if(!currentUser){ %>
+        <div class= "jumbotron text-center">
+            <h1> Welcome to CRUD </h1>
+            <h3> create. read. update. destroy </h3>
+            <br> 
+            <h2><a href="/user/register"><i class="fa fa-user-plus"></i>    Register    </a> or <a href="/user/login"><i class="fa fa-user-circle"></i>    Login    </a></h2>
+        </div>  
+    <% } %>
+
+<div class="hidden-sm hidden-xs hidden-md col-lg-2 col-lg-offset-1"style="position:fixed">
+    <%if (currentUser) { %>
+        <div class="thumbnail"style="padding:0">
+            <img src="/uploads/avatar<%=currentUser.id%>.png">
+            <div class="caption">
+                <div class="text-center">
+                <h2><a href="/user/profile/<%=currentUser.id%>"><%= currentUser.username %></h2></a>
+                <!-- Button trigger modal -->
+                <hr>
+                <button id="crudBtn" type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#crudpost"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
+                <h4>Add to the CRUDpile</h4>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<div class="col-lg-5 col-lg-offset-3"> 
+    <div id="crudPile" class="jumbotron text-center">
+        <h1>CRUD pile </h1>
+        <% if(currentUser) { %>
+        <br>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#crudpost"><i class="fa fa-5x fa-pencil" aria-hidden="true"></i></button>
+        <h4>Add to the CRUDpile</h4>
+            <div class="collapse" id="crudpost">
+                <div class="panel-body">
+                    <form action='/crud' method='POST'>
+                        <div class="form-group">
+                            <textarea class="form-control" type='text' name='pile[body]' rows="5" placeholder='Write a pile' style="resize: vertical" required></textarea>
+                            <br>
+                            <input class="btn btn-lg btn-primary" type='submit' name='submit'>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <hr>
+    <% allPiles.forEach(function(pile){ %>
+        <div class="panel panel-default" style="padding:20px;">
+            
+                <div class="media">
+                    <div class="media-left">
+                        <a href="/user/profile/<%=pile.author.id%>">
+                        <img class="media-object" style="height:70px;width:70px" src="/uploads/avatar<%=pile.author.id%>.png">
+                        </a>
+                    </div> 
+                    <div class="media-right">
+                        <h4 class="media-heading"><a href="/user/profile/<%=pile.author.id%>"><%= pile.author.username %></a></h4>
+                        <p><a href="/crud/<%=pile._id%>"><%= pile.date.getMonth() + 1 %>/<%= pile.date.getDate()%>/<%= pile.date.getFullYear() %></a></p>
+                        <p><%- pile.body %></p>
+                     <% if(currentUser) { %>
+                    <% if(currentUser && pile.author.id.equals(currentUser._id)|| (currentUser.username == "Lincoln Bartlett")){ %>
+                    <div class="well-sm">
+                        <form action="/crud/<%=pile.id%>?_method=DELETE" method="post"style="display:inline">
+                            <button class="btn btn-xs btn-primary" type="submit">Delete</button>
+                        </form>
+                        <form action="/crud/<%=pile.id%>/edit" method="get"style="display:inline">
+                            <button class="btn btn-xs btn-info" type="submit" >Edit</button>
+                        </form>
+                    </div>
+                    <% } %>
+                    <% } %>
+                    </div>
+                    <% if (pile.comments.length > 0 && pile.comments.length <= 3){ %>
+                        <div class="well well-lg">
+                            <ul class="media-list"> 
+                            <% pile.comments.forEach(function(comment){ %>                                  
+                                <li class="media">
+                                    <div class="media-left media-middle">
+                                        <a href="/user/profile/<%=comment.author.id%>">
+                                        <img class="media-object" style="height:45px;width:45px" src="/uploads/avatar<%=comment.author.id%>.png"></a>
+                                    </div>  
+                                    <div class="media-right">
+                                        <h5 class="media-heading"><a href="/user/profile/<%=comment.author.id%>"><%= comment.author.username%></a></h5>
+                                            <% if (currentUser) { %>
+                                                <% if(currentUser._id.equals(comment.author.id) || currentUser.username === 'Lincoln Bartlett') { %>
+                                                    <form action="/crud/comment/<%=comment.id%>?_method=DELETE" method="post">
+                                                        <button class="btn btn-xs btn-primary" type="submit">Delete</button>
+                                                    </form>  
+                                                <% } %>
+                                            <% } %>
+                                        <p><%= comment.text %></p>
+                                    </div>
+                                </li>
+                            <% }); %>
+                            </ul>
+                        </div>    
+                    <% }else if (pile.comments.length > 3){ %>
+                            <div class="well well-lg">
+                                <ul class="media-list"> 
+                                    <% for(var i = 0; i < 3; i++){ %>
+                                        <li class="media">
+                                            <div class="media-left media-middle">
+                                                <a href="/user/profile/<%=pile.comments[i].author.id%>">
+                                                <img class="media-object"  style="height:45px;width:45px" src="/uploads/avatar<%=pile.comments[i].author.id%>.png"></a>
+                                            </div> 
+                                                <div class="media-right">
+                                                    <h5 class="media-heading"><a href="/user/profile/<%=pile.comments[i].author.id%>"><%=pile.comments[i].author.username%></a></h5>
+                                            <% if (currentUser) { %>
+                                                <% if(currentUser._id.equals(pile.comments[i].author.id) || currentUser.username === 'Lincoln Bartlett') { %>
+                                                    <form action="/crud/comment/<%=pile.comments[i].id%>?_method=DELETE" method="post">
+                                                        <button class="btn btn-xs btn-primary" type="submit">Delete</button>
+                                                    </form>  
+                                                <% } %>
+                                            <% } %>
+                                                    <p><%=pile.comments[i].text%></p>
+                                            </div>
+                                        </li>
+                                    <% } %>
+                                    <div class="collapse" id="<%=pile._id%>">
+                                    <% for(var j = 3; j < pile.comments.length; j++){ %>
+                                        <li class="media">
+                                            <div class="media-left media-middle">
+                                                <a href="/user/profile/<%=pile.comments[j].author.id%>">
+                                                <img class="media-object"  style="height:45px;width:45px" src="/uploads/avatar<%=pile.comments[j].author.id%>.png"></a>
+                                            </div> 
+                                                <div class="media-right">
+                                                    <h5 class="media-heading"><a href="/user/profile/<%=pile.comments[j].author.id%>"><%=pile.comments[j].author.username%></a></h5>
+                                            <% if (currentUser) { %>
+                                                <% if(currentUser._id.equals(pile.comments[j].author.id) || currentUser.username === 'Lincoln Bartlett') { %>
+                                                    <form action="/crud/comment/<%=pile.comments[j].id%>?_method=DELETE" method="post">
+                                                        <button class="btn btn-xs btn-primary" type="submit">Delete</button>
+                                                    </form>  
+                                                <% } %>
+                                            <% } %>
+                                                    <p><%=pile.comments[j].text%></p>
+                                            </div>
+                                        </li>
+                                    <% } %>
+                                    </div>
+                                    <button class="btn btn-default btn-sm" type="button" data-toggle="collapse" data-target="#<%=pile._id%>" aria-expanded="false" aria-controls="<%=pile._id%>" style="display:block;float:right">
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    </button> 
+                                </ul>
+                            </div>
+                    <% } %>                      
+
+                        <% if(currentUser){ %>
+                        <button class="btn btn-info btn-sm" type="button" data-toggle="collapse" data-target="#<%=pile.id%>com" aria-expanded="false" aria-controls="collapseExample">
+                        Comment
+                        </button>
+                        <div class="collapse" id="<%=pile.id%>com">
+                        <div class="panel-body">
+                                <form action='/crud/<%= pile.id %>/comment' method='POST'>
+                                    <div class="form-group">
+                                        <textarea class="form-control" type='text' name='comment[text]' rows="5" placeholder='Write a comment' required></textarea>
+                                        <input class="btn btn-sm btn-primary" type='submit' name='submit'>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    <% } %>                 
+                </div>
+        </div>
+         <hr>
+    <% }); %>   
+</div>
+
+<div class="hidden-sm hidden-xs hidden-md col-lg-3 col-lg-offset-8"style="position:fixed">
+     <% if(currentUser){ %>
+    <h1 class="text-center">CRUD users </h1>
+    <hr>
+     <div style="overflow:auto;height: 60vh">
+        <% allProfiles.forEach(function(profile){ %>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-left media-middle">
+                            <a href="/user/profile/<%= profile.id %>"><img style="height:80px;width:80px" src="/uploads/avatar<%= profile.id %>.png"></a>
+                        </div>
+                        <div class="media-body">
+                           <h3><a href="/user/profile/<%= profile.id %>"><%= profile.username %></a></h3>
+                           <% if(currentUser.username === 'Lincoln Bartlett') { %>
+                                <form action="/user/<%=profile.id%>?_method=DELETE" method="post">
+                                    <button class="btn btn-xs btn-primary" type="submit">Delete</button>
+                                </form>  
+                           <% } %>
+                        </div>
+                    </div>
+                </div>
+           </div> 
+        <% }); %>
+    </div>
+    <% } %>   
+</div>
+
+
+
+
+
+<div class="row">
+<div class="col-lg-4 col-lg-offset-4">
+    <nav aria-label="...">
+    <ul class="pager">
+        <% if(pagenum !== 0){ %>
+        <li><a href="/crud/pile/<%=pagenum - 1 %>"><span aria-hidden="true">&larr;</span>   Previous</a></li>
+        <% } %>
+        <li><a href="/crud/pile/<%=pagenum + 1 %>">Next   <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+    </nav>
+</div>
+</div>
+<% include ../partials/footer %>
+<script>
+$(document).ready(function() {
+    $("#crudBtn").click(function() {
+        $('html, body').animate({
+            scrollTop: $("#crudPile").offset().top
+        }, 1500);
+    });
+});
+</script>

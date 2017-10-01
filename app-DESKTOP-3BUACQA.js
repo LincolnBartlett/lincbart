@@ -10,7 +10,7 @@ var express          = require('express'),
     app              = express(),
     expressSanitizer = require('express-sanitizer');
 
-var port = 80; 
+var port = 1901; 
 mongoose.connect('mongodb://localhost/lincbart2');
 
 
@@ -47,18 +47,19 @@ app.get('/front', function(req , res){
 });
 
 
-var appRoute        = require('./routes/app.js'),
-    crudRoute       = require('./routes/crud.js'),
-    blogRoute       = require('./routes/blog.js'),
-    userRoute       = require('./routes/user.js'),
-    avatarRoute     = require('./routes/avatar.js');
+
+var appRoute     = require('./routes/app.js'),
+    crudRoute    = require('./routes/crud.js'),
+    blogRoute    = require('./routes/blog.js'),
+    userRoute    = require('./routes/user.js'),
+    uploadRoute  = require('./routes/uploads.js');
 
 
 app.use('/app', appRoute);
 app.use('/crud', crudRoute);
 app.use('/blog', blogRoute);
 app.use('/user', userRoute);
-app.use('/upload/avatar', avatarRoute);
+app.use('/upload', uploadRoute);
 
 
 app.get('/*', function(req, res){
