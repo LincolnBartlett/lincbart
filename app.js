@@ -10,7 +10,7 @@ var express          = require('express'),
     app              = express(),
     expressSanitizer = require('express-sanitizer');
 
-var port = 80; 
+var port = 80 || 443; 
 mongoose.connect('mongodb://localhost/lincbart2');
 
 
